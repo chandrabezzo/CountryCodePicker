@@ -13,83 +13,121 @@ export 'src/country_localizations.dart';
 export 'src/selection_dialog.dart';
 
 class CountryCodePicker extends StatefulWidget {
+  /// Callback invoked when the selection changes.
   final ValueChanged<CountryCode>? onChanged;
-  final ValueChanged<CountryCode?>? onInit;
-  final String? initialSelection;
-  final List<String> favorite;
-  final TextStyle? textStyle;
-  final EdgeInsetsGeometry padding;
-  final bool showCountryOnly;
-  final InputDecoration searchDecoration;
-  final TextStyle? searchStyle;
-  final TextStyle? dialogTextStyle;
-  final WidgetBuilder? emptySearchBuilder;
-  final Function(CountryCode?)? builder;
-  final bool enabled;
-  final TextOverflow textOverflow;
-  final Icon closeIcon;
 
-  /// Barrier color of ModalBottomSheet
+  /// Callback invoked during initialization of the widget.
+  final ValueChanged<CountryCode?>? onInit;
+
+  /// Used to set the initial selected value.
+  final String? initialSelection;
+
+  /// Used to populate the favorite country list.
+  final List<String> favorites;
+
+  /// TextStyle applied to the widget button.
+  final TextStyle? textStyle;
+
+  /// The padding applied to the button.
+  final EdgeInsetsGeometry padding;
+
+  /// When true, the dialog will not show the dial code, only the country name.
+  final bool showCountryOnly;
+
+  /// The input decoration for the search field in the dialog.
+  final InputDecoration searchDecoration;
+
+  /// The TextStyle of the search field.
+  final TextStyle? searchStyle;
+
+  /// The TextStyle of the country name and country code in the dialog.
+  final TextStyle? dialogTextStyle;
+
+  /// Use this to customize the widget used when the search returns 0 elements.
+  final WidgetBuilder? emptySearchBuilder;
+
+  /// Use this to build a custom widget instead of the default FlatButton.
+  final Function(CountryCode?)? builder;
+
+  /// Set to false to disable the widget.
+  final bool enabled;
+
+  /// The button text overflow behaviour.
+  final TextOverflow textOverflow;
+
+  /// Custom widget used to close the dialog.
+  final Widget? closeIcon;
+
+  /// Custom widget used as title for the dialog.
+  final Widget? dialogTitle;
+
+  /// Barrier color of ModalBottomSheet.
   final Color? barrierColor;
 
-  /// Background color of ModalBottomSheet
+  /// Background color of ModalBottomSheet.
   final Color? backgroundColor;
 
-  /// BoxDecoration for dialog
+  /// BoxDecoration for dialog.
   final BoxDecoration? boxDecoration;
 
-  /// the size of the selection dialog
+  /// the size of the selection dialog.
   final Size? dialogSize;
 
-  /// Background color of selection dialog
+  /// Background color of selection dialog.
   final Color? dialogBackgroundColor;
 
-  /// used to customize the country list
+  /// used to customize the country list.
   final List<String>? countryFilter;
 
-  /// shows the name of the country instead of the dialcode
+  /// shows the name of the country instead of the dialcode.
   final bool showOnlyCountryWhenClosed;
 
   /// aligns the flag and the Text left
   ///
   /// additionally this option also fills the available space of the widget.
   /// this is especially useful in combination with [showOnlyCountryWhenClosed],
-  /// because longer country names are displayed in one line
+  /// because longer country names are displayed in one line.
   final bool alignLeft;
 
-  /// shows the flag
+  /// Whether to show the flag on the button or not.
   final bool showFlag;
 
+  /// When true, the button does not display the country code nor the country name.
   final bool hideMainText;
 
+  /// Shows the flag only when the dialog closed.
   final bool? showFlagMain;
 
-  final bool? showFlagDialog;
+  /// Whether to show flags in the dialog or not.
+  final bool? showFlagsInDialog;
 
-  /// Width of the flag images
+  /// Width of the flag images.
   final double flagWidth;
 
-  /// Use this property to change the order of the options
+  /// Use this property to change the order of the options.
   final Comparator<CountryCode>? comparator;
 
-  /// Set to true if you want to hide the search part
+  /// Set to true if you want to hide the search part.
   final bool hideSearch;
 
-  /// Set to true if you want to show drop down button
+  /// Set to true if you want to show drop down button.
   final bool showDropDownButton;
 
-  /// [BoxDecoration] for the flag image
+  /// [BoxDecoration] for the flag image.
   final Decoration? flagDecoration;
 
   /// An optional argument for injecting a list of countries
   /// with customized codes.
   final List<Map<String, String>> countryList;
 
+  /// Separator widget for list items inside the dialog.
+  final Widget? separator;
+
   const CountryCodePicker({
     this.onChanged,
     this.onInit,
     this.initialSelection,
-    this.favorite = const [],
+    this.favorites = const [],
     this.textStyle,
     this.padding = const EdgeInsets.all(8.0),
     this.showCountryOnly = false,
@@ -100,7 +138,7 @@ class CountryCodePicker extends StatefulWidget {
     this.showOnlyCountryWhenClosed = false,
     this.alignLeft = false,
     this.showFlag = true,
-    this.showFlagDialog,
+    this.showFlagsInDialog,
     this.hideMainText = false,
     this.showFlagMain,
     this.flagDecoration,
@@ -117,8 +155,10 @@ class CountryCodePicker extends StatefulWidget {
     this.showDropDownButton = false,
     this.dialogSize,
     this.dialogBackgroundColor,
-    this.closeIcon = const Icon(Icons.close),
+    this.closeIcon,
+    this.dialogTitle,
     this.countryList = codes,
+    this.separator,
     Key? key,
   }) : super(key: key);
 
@@ -276,7 +316,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
 
     favoriteElements = elements
         .where((item) =>
-            widget.favorite.firstWhereOrNull((criteria) =>
+            widget.favorites.firstWhereOrNull((criteria) =>
                 item.code!.toUpperCase() == criteria.toUpperCase() ||
                 item.dialCode == criteria ||
                 item.name!.toUpperCase() == criteria.toUpperCase()) !=
@@ -299,14 +339,16 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             searchStyle: widget.searchStyle,
             textStyle: widget.dialogTextStyle,
             boxDecoration: widget.boxDecoration,
-            showFlag: widget.showFlagDialog ?? widget.showFlag,
+            showFlag: widget.showFlagsInDialog ?? widget.showFlag,
             flagWidth: widget.flagWidth,
             size: widget.dialogSize,
             backgroundColor: widget.dialogBackgroundColor,
             barrierColor: widget.barrierColor,
             hideSearch: widget.hideSearch,
             closeIcon: widget.closeIcon,
+            title: widget.dialogTitle,
             flagDecoration: widget.flagDecoration,
+            separator: widget.separator,
           ),
         ),
       ),

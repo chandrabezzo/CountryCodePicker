@@ -1,7 +1,11 @@
 ![GitHub code size](https://img.shields.io/github/languages/code-size/chandrabezzo/CountryCodePicker)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 ![GitHub contributors](https://img.shields.io/github/contributors/chandrabezzo/CountryCodePicker)
 [![Pub](https://img.shields.io/pub/v/country_code_picker.svg)](https://pub.dartlang.org/packages/country_code_picker)
 [![Linkedin](https://i.stack.imgur.com/gVE0j.png) LinkedIn](https://www.linkedin.com/in/salvatore-giordano/)
@@ -138,54 +142,61 @@ Just add the `CountryLocalizations.delegate` in the list of your app delegates
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
+ )
 ```
 
 ## Customization
 
 Here is a list of properties available to customize your widget:
 
-| Name | Type | Description |
-|-----|-----|------|
-|onChanged| ValueChanged<CountryCode> | callback invoked when the selection changes |
-|onInit| ValueChanged<CountryCode> | callback invoked during initialization of the widget |
-|initialSelection| String | used to set the initial selected value |
-|favorite| List<String> | used to populate the favorite country list |
-|textStyle| TextStyle | TextStyle applied to the widget button |
-|padding| EdgeInsetsGeometry | the padding applied to the button |
-|showCountryOnly| bool | true if you want to see only the countries in the selection dialog |
-|searchDecoration| InputDecoration | decoration applied to the TextField search widget |
-|searchStyle| TextStyle | style applied to the TextField search widget text |
-|emptySearchBuilder| WidgetBuilder | use this to customize the widget used when the search returns 0 elements |
-|builder| Function(CountryCode) | use this to build a custom widget instead of the default FlatButton |
-|enabled| bool | set to false to disable the widget |
-|textOverflow| TextOverflow | the button text overflow behaviour |
-|dialogSize| Size | the size of the selection dialog |
-|countryFilter| List<String> | uses a list of strings to filter a sublist of countries |
-|showOnlyCountryWhenClosed| bool | if true it'll show only the country |
-|alignLeft| bool | aligns the flag and the Text to the left |
-|showFlag| bool | shows the flag everywhere |
-|showFlagMain| bool | shows the flag only when closed |
-|showFlagDialog| bool | shows the flag only in dialog |
-|flagWidth| double | the width of the flags |
-|flagDecoration| Decoration | used for styling the flags |
-|comparator| Comparator<CountryCode> | use this to sort the countries in the selection dialog |
-|hideSearch| bool | if true the search feature will be disabled |
+| Name                      | Type                      | Description                                                              |
+| ------------------------- | ------------------------- | ------------------------------------------------------------------------ |
+| alignLeft                 | bool                      | aligns the flag and the Text to the left                                 |
+| builder                   | Function(CountryCode)     | use this to build a custom widget instead of the default FlatButton      |
+| closeIcon                 | Widget                    | custom widget used to close the dialog                                   |
+| comparator                | Comparator<CountryCode>   | use this to sort the countries in the selection dialog                   |
+| countryFilter             | List<String>              | uses a list of strings to filter a sublist of countries                  |
+| dialogSize                | Size                      | the size of the selection dialog                                         |
+| dialogTitle               | Widget                    | custom widget used as title for the dialog.                              |
+| emptySearchBuilder        | WidgetBuilder             | use this to customize the widget used when the search returns 0 elements |
+| enabled                   | bool                      | set to false to disable the widget                                       |
+| favorites                 | List<String>              | used to populate the favorite country list                               |
+| flagDecoration            | Decoration                | used for styling the flags                                               |
+| flagWidth                 | double                    | the width of the flags                                                   |
+| hideSearch                | bool                      | if true, the search feature will be disabled                             |
+| initialSelection          | String                    | used to set the initial selected value                                   |
+| onChanged                 | ValueChanged<CountryCode> | callback invoked when the selection changes                              |
+| onInit                    | ValueChanged<CountryCode> | callback invoked during initialization of the widget                     |
+| padding                   | EdgeInsetsGeometry        | the padding applied to the button                                        |
+| searchDecoration          | InputDecoration           | decoration applied to the TextField search widget                        |
+| searchStyle               | TextStyle                 | style applied to the TextField search widget text                        |
+| separator                 | Widget                    | separator widget for list items inside the dialog                        |
+| showCountryOnly           | bool                      | true if you want to see only the countries in the selection dialog       |
+| showFlag                  | bool                      | shows the flag everywhere                                                |
+| showFlagsInDialog         | bool                      | shows the flag only in dialog                                            |
+| showFlagMain              | bool                      | shows the flag only when the dialog closed                               |
+| showOnlyCountryWhenClosed | bool                      | if true, it'll show only the country                                     |
+| textOverflow              | TextOverflow              | the button text overflow behaviour                                       |
+| textStyle                 | TextStyle                 | textStyle applied to the widget button                                   |
 
 ## Contributions
 
 Contributions of any kind are more than welcome! Feel free to fork and improve country_code_picker in any way you want, make a pull request, or open an issue.
 
-
 ## Getting involved
-First of all, thank you for even considering to get involved. You are a real super :star:  and we :heart:  you!
+
+First of all, thank you for even considering to get involved. You are a real super :star: and we :heart: you!
 
 ### Reporting bugs and issues
+
 Use the configured [Github issue report template](https://github.com/imtoori/CountryCodePicker/issues/new?assignees=&labels=&template=bug_report.md&title=) when reporting an issue. Make sure to state your observations and expectations
 as objectively and informative as possible so that we can understand your need and be able to troubleshoot.
 
 ### Discussions and ideas
+
 We're happy to discuss and talk about ideas, post your
 question to [StackOverflow](https://stackoverflow.com/search?q=country+code+picker).
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

@@ -12,12 +12,16 @@ class SelectionDialog extends StatefulWidget {
   final TextStyle? textStyle;
   final BoxDecoration? boxDecoration;
   final WidgetBuilder? emptySearchBuilder;
-  final bool? showFlag;
+  final bool showFlag;
   final double flagWidth;
   final Decoration? flagDecoration;
   final Size? size;
   final bool hideSearch;
-  final Icon? closeIcon;
+  final Widget? closeIcon;
+  final Widget? title;
+
+  /// Separator widget for list items.
+  final Widget? separator;
 
   /// Background color of SelectionDialog
   final Color? backgroundColor;
@@ -38,7 +42,7 @@ class SelectionDialog extends StatefulWidget {
     this.searchStyle,
     this.textStyle,
     this.boxDecoration,
-    this.showFlag,
+    this.showFlag = false,
     this.flagDecoration,
     this.flagWidth = 32,
     this.size,
@@ -46,6 +50,8 @@ class SelectionDialog extends StatefulWidget {
     this.barrierColor,
     this.hideSearch = false,
     this.closeIcon,
+    this.title,
+    this.separator,
   })  : searchDecoration = searchDecoration.prefixIcon == null
             ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search))
             : searchDecoration,
@@ -60,114 +66,128 @@ class _SelectionDialogState extends State<SelectionDialog> {
   late List<CountryCode> filteredElements;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: Container(
-          clipBehavior: Clip.hardEdge,
-          width: widget.size?.width ?? MediaQuery.of(context).size.width,
-          height:
-              widget.size?.height ?? MediaQuery.of(context).size.height * 0.85,
-          decoration: widget.boxDecoration ??
-              BoxDecoration(
-                color: widget.backgroundColor ?? Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: widget.barrierColor ?? Colors.grey.withOpacity(1),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.hardEdge,
+      width: widget.size?.width ?? MediaQuery.of(context).size.width,
+      height: widget.size?.height ?? MediaQuery.of(context).size.height * 0.85,
+      decoration: widget.boxDecoration ??
+          BoxDecoration(
+            color: widget.backgroundColor ?? Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            boxShadow: [
+              BoxShadow(
+                color: widget.barrierColor ?? Colors.grey.withOpacity(1),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
               ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            ],
+          ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                padding: const EdgeInsets.all(0),
-                iconSize: 20,
-                icon: widget.closeIcon!,
-                onPressed: () => Navigator.pop(context),
-              ),
-              if (!widget.hideSearch)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: TextField(
-                    style: widget.searchStyle,
-                    decoration: widget.searchDecoration,
-                    onChanged: _filterElements,
-                  ),
-                ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    widget.favoriteElements.isEmpty
-                        ? const DecoratedBox(decoration: BoxDecoration())
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ...widget.favoriteElements.map(
-                                (f) => SimpleDialogOption(
-                                  child: _buildOption(f),
-                                  onPressed: () {
-                                    _selectItem(f);
-                                  },
-                                ),
-                              ),
-                              const Divider(),
-                            ],
-                          ),
-                    if (filteredElements.isEmpty)
-                      _buildEmptySearchWidget(context)
-                    else
-                      ...filteredElements.map(
-                        (e) => SimpleDialogOption(
-                          child: _buildOption(e),
-                          onPressed: () {
-                            _selectItem(e);
-                          },
-                        ),
-                      ),
-                  ],
+              widget.title ?? const SizedBox.shrink(),
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: widget.closeIcon ?? const Icon(Icons.close),
                 ),
               ),
             ],
           ),
-        ),
-      );
-
-  Widget _buildOption(CountryCode e) {
-    return SizedBox(
-      width: 400,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          if (widget.showFlag!)
-            Flexible(
-              child: Container(
-                margin: const EdgeInsets.only(right: 16.0),
-                decoration: widget.flagDecoration,
-                clipBehavior:
-                    widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
-                child: Image.asset(
-                  e.flagUri!,
-                  package: 'country_code_picker',
-                  width: widget.flagWidth,
-                ),
+          if (!widget.hideSearch)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: TextField(
+                style: widget.searchStyle,
+                decoration: widget.searchDecoration,
+                onChanged: _filterElements,
               ),
             ),
           Expanded(
-            flex: 4,
-            child: Text(
-              widget.showCountryOnly!
-                  ? e.toCountryStringOnly()
-                  : e.toLongString(),
-              overflow: TextOverflow.fade,
-              style: widget.textStyle,
+            child: ListView(
+              padding: const EdgeInsets.only(top: 12),
+              children: [
+                widget.favoriteElements.isEmpty
+                    ? const DecoratedBox(decoration: BoxDecoration())
+                    : Column(
+                        children: [
+                          ListView.separated(
+                            itemCount: widget.favoriteElements.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) {
+                              return widget.separator ??
+                                  const SizedBox(height: 16);
+                            },
+                            itemBuilder: (context, index) {
+                              final item = widget.favoriteElements[index];
+                              return SimpleDialogOption(
+                                onPressed: () => _selectItem(item),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                child: _buildOption(item),
+                              );
+                            },
+                          ),
+                          const Divider(),
+                        ],
+                      ),
+                if (filteredElements.isEmpty)
+                  _buildEmptySearchWidget(context)
+                else
+                  ListView.separated(
+                    itemCount: filteredElements.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) {
+                      return widget.separator ?? const SizedBox(height: 16);
+                    },
+                    itemBuilder: (context, index) {
+                      final item = filteredElements[index];
+                      return SimpleDialogOption(
+                        onPressed: () => _selectItem(item),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: _buildOption(item),
+                      );
+                    },
+                  ),
+              ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildOption(CountryCode e) {
+    return ListTile(
+      leading: widget.showFlag
+          ? Container(
+              decoration: widget.flagDecoration,
+              clipBehavior:
+                  widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
+              child: Image.asset(
+                e.flagUri!,
+                package: 'country_code_picker',
+                width: widget.flagWidth,
+              ),
+            )
+          : null,
+      title: Text(
+        e.toCountryStringOnly(),
+        overflow: TextOverflow.fade,
+        style: widget.textStyle,
+      ),
+      trailing: Text(
+        widget.showCountryOnly! ? '' : e.toString(),
+        style: widget.textStyle,
       ),
     );
   }
