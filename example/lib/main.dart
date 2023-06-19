@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   MyAppState createState() => MyAppState();
@@ -102,21 +102,27 @@ class MyAppState extends State<MyApp> {
             children: <Widget>[
               CountryCodePicker(
                 onChanged: print,
-                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                // Initial selection and favorites can be one of code ('IT') OR dial_code('+39')
                 initialSelection: 'IT',
-                favorite: const ['+39', 'FR'],
+                separator: const Divider(height: 0),
+                dialogTitle: const Padding(
+                  padding: EdgeInsets.only(left: 24.0),
+                  child: Text(
+                    'Dialog title',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 countryFilter: const ['IT', 'FR'],
-                showFlagDialog: false,
-                comparator: (a, b) => b.name.compareTo(a.name),
+                comparator: (a, b) => b.name!.compareTo(a.name!),
                 //Get the country information relevant to the initial selection
                 onInit: (code) => debugPrint(
-                    "on init ${code.name} ${code.dialCode} ${code.name}"),
+                    "on init ${code!.name} ${code.dialCode} ${code.name}"),
               ),
               CountryCodePicker(
                 onChanged: print,
-                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                // Initial selection and favorites can be one of code ('IT') OR dial_code('+39')
                 initialSelection: 'IT',
-                favorite: const ['+39', 'FR'],
+                favorites: const ['+39', 'FR'],
                 countryFilter: const ['IT', 'FR'],
                 // flag can be styled with BoxDecoration's `borderRadius` and `shape` fields
                 flagDecoration: BoxDecoration(
@@ -146,7 +152,7 @@ class MyAppState extends State<MyApp> {
                   initialSelection: 'TF',
                   showCountryOnly: true,
                   showOnlyCountryWhenClosed: true,
-                  favorite: const ['+39', 'FR'],
+                  favorites: const ['+39', 'FR'],
                 ),
               ),
               SizedBox(
@@ -158,7 +164,7 @@ class MyAppState extends State<MyApp> {
                   initialSelection: 'TF',
                   showCountryOnly: true,
                   showOnlyCountryWhenClosed: true,
-                  favorite: const ['+39', 'FR'],
+                  favorites: const ['+39', 'FR'],
                 ),
               ),
             ],
