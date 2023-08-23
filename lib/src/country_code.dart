@@ -32,11 +32,15 @@ class CountryCode {
     return CountryCode.fromCountryCode(isoCode);
   }
 
-  factory CountryCode.fromCountryCode(String countryCode) {
+  static fromCountryCode(String countryCode) {
     final Map<String, String>? jsonCode = codes.firstWhereOrNull(
       (code) => code['code'] == countryCode,
     );
-    return CountryCode.fromJson(jsonCode!);
+    if (jsonCode == null) {
+      return null;
+    } else {
+      return CountryCode.fromJson(jsonCode);
+    }
   }
 
   factory CountryCode.fromDialCode(String dialCode) {
