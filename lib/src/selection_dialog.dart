@@ -182,8 +182,8 @@ class _SelectionDialogState extends State<SelectionDialog> {
       );
 
   Widget _buildOption(CountryCode e) {
-    print(e.toLongString());
-    return SizedBox(
+    return Container(
+      color: Colors.pink,
       width: 400,
       height: 73.33,
       child: Flex(
