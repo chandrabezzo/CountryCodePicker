@@ -185,6 +185,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
     print(e.toLongString());
     return SizedBox(
       width: 400,
+      height: 73.33,
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[
