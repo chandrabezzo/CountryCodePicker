@@ -95,6 +95,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
             children: [
               Container(
                 height: 55,
+                
                 decoration: const BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -135,8 +136,6 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 ),
               ),
               
-              //if (!widget.hideSearch)
-                
               Expanded(
                 child: ListView(
                   children: [
@@ -150,13 +149,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
                                   onTap: () {
                                     _selectItem(f);
                                   },
-                                  child: Padding(
-                                    padding: widget.dialogItemPadding,
-                                    child: _buildOption(f),
-                                  )
+                                  child: _buildOption(f)
                                 )
                               ),
-                              const Divider(),
                             ],
                           ),
                     if (filteredElements.isEmpty)
@@ -167,10 +162,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                           onTap: () {
                             _selectItem(e);
                           },
-                          child: Padding(
-                          padding: widget.dialogItemPadding,
-                            child: _buildOption(e),
-                          )
+                          child: _buildOption(e)
                         )
                       ),
                   ],
@@ -183,24 +175,30 @@ class _SelectionDialogState extends State<SelectionDialog> {
 
   Widget _buildOption(CountryCode e) {
     return Container(
-      color: Colors.pink,
       width: 400,
-      height: 73.33,
+      height: 35,
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 1,
+            color: Color(0xFFF0F0F0),
+          )
+        )
+      ),
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[
           if (widget.showFlag!)
-            Flexible(
-              child: Container(
-                margin: const EdgeInsets.only(right: 16.0),
-                decoration: widget.flagDecoration,
-                clipBehavior:
-                    widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
-                child: Image.asset(
-                  e.flagUri!,
-                  package: 'country_code_picker',
-                  width: widget.flagWidth,
-                ),
+            Container(
+              margin: const EdgeInsets.only(right: 16.0),
+              padding: const EdgeInsets.only(left: 25.0),
+              decoration: widget.flagDecoration,
+              clipBehavior:
+                  widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
+              child: Image.asset(
+                e.flagUri!,
+                package: 'country_code_picker',
+                width: widget.flagWidth,
               ),
             ),
           Expanded(

@@ -131,7 +131,7 @@ class CountryCodePicker extends StatefulWidget {
     this.countryList = codes,
     this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
-    this.hintText = 'Busca un Pais',
+    this.hintText = '   Busca un Pais',
     this.hintTextStyle,
     Key? key, 
   }) : super(key: key);
