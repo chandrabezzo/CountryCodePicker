@@ -174,48 +174,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
       );
 
   Widget _buildOption(CountryCode e) {
-    return Container(
-      padding: widget.dialogItemPadding,
-      width: 400,
-      height: 35,
-      color: Colors.pink,
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 1,
-            color: Color(0xFFF0F0F0),
-          )
-        )
-      ),
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          if (widget.showFlag!)
-            Container(
-              margin: const EdgeInsets.only(right: 16.0),
-              padding: const EdgeInsets.only(left: 25.0),
-              decoration: widget.flagDecoration,
-              clipBehavior:
-                  widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
-              child: Image.asset(
-                e.flagUri!,
-                package: 'country_code_picker',
-                width: widget.flagWidth,
-              ),
-            ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              widget.showCountryOnly!
-                  ? e.toCountryStringOnly()
-                  : e.toLongString(),
-              overflow: TextOverflow.fade,
-              style: widget.textStyle,
-            ),
-          ),
-        ],
-      ),
-    );
+    return Text('jajajajajajajajaja');
   }
 
   Widget _buildEmptySearchWidget(BuildContext context) {
