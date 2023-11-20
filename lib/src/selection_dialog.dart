@@ -175,8 +175,10 @@ class _SelectionDialogState extends State<SelectionDialog> {
 
   Widget _buildOption(CountryCode e) {
     return Container(
+      padding: widget.dialogItemPadding,
       width: 400,
       height: 35,
+      color: Colors.pink,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
