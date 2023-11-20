@@ -19,6 +19,8 @@ class SelectionDialog extends StatefulWidget {
   final bool hideSearch;
   final bool hideCloseIcon;
   final Icon? closeIcon;
+  final String hintText;
+  final TextStyle? hintTextStyle;
 
   /// Background color of SelectionDialog
   final Color? backgroundColor;
@@ -53,7 +55,7 @@ class SelectionDialog extends StatefulWidget {
     this.hideCloseIcon = false,
     this.closeIcon,
     this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-    this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
+    this.searchPadding = const EdgeInsets.symmetric(horizontal: 24), required this.hintText, this.hintTextStyle,
   })  : searchDecoration = searchDecoration.prefixIcon == null
             ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search))
             : searchDecoration,
@@ -72,18 +74,17 @@ class _SelectionDialogState extends State<SelectionDialog> {
         padding: const EdgeInsets.all(0.0),
         child: Container(
           clipBehavior: Clip.hardEdge,
-          width: widget.size?.width ?? MediaQuery.of(context).size.width,
-          height:
-              widget.size?.height ?? MediaQuery.of(context).size.height * 0.85,
+          width: 296,
+          height: 220,
           decoration: widget.boxDecoration ??
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(12.0)),
                 boxShadow: [
                   BoxShadow(
                     color: widget.barrierColor ?? Colors.grey.withOpacity(1),
                     spreadRadius: 5,
-                    blurRadius: 7,
+                    blurRadius: 5,
                     offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
@@ -92,22 +93,50 @@ class _SelectionDialogState extends State<SelectionDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              if (!widget.hideCloseIcon)
-              IconButton(
-                padding: const EdgeInsets.all(0),
-                iconSize: 20,
-                icon: widget.closeIcon!,
-                onPressed: () => Navigator.pop(context),
-              ),
-              if (!widget.hideSearch)
-                Padding(
-                  padding: widget.searchPadding,
-                  child: TextField(
-                    style: widget.searchStyle,
-                    decoration: widget.searchDecoration,
-                    onChanged: _filterElements,
-                  ),
+              Container(
+                height: 55,
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 1,
+                      color: Color(0xFFF0F0F0),
+                    )
+                  )
                 ),
+
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Icon(
+                        Icons.search_outlined, 
+                        color: Color(0xFF929292), 
+                        size: 30
+                      )
+                    ),
+                    
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: SizedBox(
+                        width: 200,
+                        height: 40,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: widget.hintText,
+                            hintStyle: widget.hintTextStyle,
+                          ),
+                          style: widget.searchStyle,
+                          onChanged: _filterElements,
+                        ),
+                      ),
+                    ),
+                  ]
+                ),
+              ),
+              
+              //if (!widget.hideSearch)
+                
               Expanded(
                 child: ListView(
                   children: [
@@ -153,6 +182,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
       );
 
   Widget _buildOption(CountryCode e) {
+    print(e.toLongString());
     return SizedBox(
       width: 400,
       child: Flex(
