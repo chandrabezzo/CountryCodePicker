@@ -1,5 +1,20 @@
 const List<Map<String, String>> codes = [
   {
+    "name": "United States",
+    "code": "US",
+    "dial_code": "+1",
+  },
+  {
+    "name": "Colombia",
+    "code": "CO",
+    "dial_code": "+57",
+  },
+  {
+    "name": "México",
+    "code": "MX",
+    "dial_code": "+52",
+  },
+  {
     "name": "افغانستان",
     "code": "AF",
     "dial_code": "+93",
@@ -1173,11 +1188,6 @@ const List<Map<String, String>> codes = [
     "name": "United Kingdom",
     "code": "GB",
     "dial_code": "+44",
-  },
-  {
-    "name": "United States",
-    "code": "US",
-    "dial_code": "+1",
   },
   {
     "name": "Uruguay",
