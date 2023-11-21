@@ -63,7 +63,7 @@ class CountryCode {
   @override
   String toString() => "$dialCode";
 
-  String toLongString() => "$dialCode ${toCountryStringOnly()}";
+  String toLongString() => "${toCountryStringOnly()} ($dialCode)";
 
   String toCountryStringOnly() {
     return '$_cleanName';
