@@ -131,7 +131,7 @@ class CountryCodePicker extends StatefulWidget {
     this.countryList = codes,
     this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
-    this.hintText = '   Busca un Pais',
+    this.hintText =  '  Busca un País',
     this.hintTextStyle,
     Key? key, 
   }) : super(key: key);
@@ -301,6 +301,21 @@ class CountryCodePickerState extends State<CountryCodePicker> {
   }
 
   void showCountryCodePickerDialog() async {
+
+    TextStyle textStyleDefault = const TextStyle(
+      color: Color(0xFF929292),
+      fontSize: 14,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400
+    );
+
+    TextStyle textSearchStyleDefault = const TextStyle(
+      color: Color(0xFFCDCDCD),
+      fontSize: 18,
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.w400
+    );
+
     final item = await showDialog(
       barrierColor: widget.barrierColor ?? Colors.grey.withOpacity(0.5),
       context: context,
@@ -312,8 +327,8 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             showCountryOnly: widget.showCountryOnly,
             emptySearchBuilder: widget.emptySearchBuilder,
             searchDecoration: widget.searchDecoration,
-            searchStyle: widget.searchStyle,
-            textStyle: widget.dialogTextStyle,
+            searchStyle: widget.searchStyle ?? textSearchStyleDefault,
+            textStyle: widget.textStyle ?? textStyleDefault,
             boxDecoration: widget.boxDecoration,
             showFlag: widget.showFlagDialog ?? widget.showFlag,
             flagWidth: widget.flagWidth,

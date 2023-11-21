@@ -21,6 +21,7 @@ class SelectionDialog extends StatefulWidget {
   final Icon? closeIcon;
   final String hintText;
   final TextStyle? hintTextStyle;
+  final String noCountryFoundMessage;
 
   /// Background color of SelectionDialog
   final Color? backgroundColor;
@@ -56,6 +57,7 @@ class SelectionDialog extends StatefulWidget {
     this.closeIcon,
     this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24), required this.hintText, this.hintTextStyle,
+    this.noCountryFoundMessage = 'No country found',
   })  : searchDecoration = searchDecoration.prefixIcon == null
             ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search))
             : searchDecoration,
@@ -174,7 +176,45 @@ class _SelectionDialogState extends State<SelectionDialog> {
       );
 
   Widget _buildOption(CountryCode e) {
-    return Text('jajajajajajajajaja');
+    return Container(
+      padding: widget.dialogItemPadding,
+      width: 400,
+      height: 55,
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 1,
+            color: Color(0xFFF0F0F0),
+          )
+        )
+      ),
+      child: Flex(
+        direction: Axis.horizontal,
+        children: <Widget>[
+          if (widget.showFlag!)
+            Container(
+              margin: const EdgeInsets.only(right: 16.0),
+              padding: const EdgeInsets.only(left: 0.0),
+              decoration: widget.flagDecoration,
+              child: Image.asset(
+                e.flagUri!,
+                package: 'country_code_picker',
+                width: widget.flagWidth,
+              ),
+            ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              widget.showCountryOnly!
+                  ? e.toCountryStringOnly()
+                  : e.toLongString(),
+              overflow: TextOverflow.fade,
+              style: widget.textStyle,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildEmptySearchWidget(BuildContext context) {
@@ -182,9 +222,12 @@ class _SelectionDialogState extends State<SelectionDialog> {
       return widget.emptySearchBuilder!(context);
     }
 
-    return Center(
-      child: Text(CountryLocalizations.of(context)?.translate('no_country') ??
-          'No country found'),
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Center(
+        child: Text(CountryLocalizations.of(context)?.translate('no_country') ??
+            widget.noCountryFoundMessage),
+      ),
     );
   }
 
