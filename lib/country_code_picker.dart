@@ -295,7 +295,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
   }
 
   void showCountryCodePickerDialog() async {
-    final item = await showDialog(
+    final item = await showModalBottomSheet(
       barrierColor: widget.barrierColor ?? Colors.grey.withOpacity(0.5),
       context: context,
       builder: (context) => Center(
