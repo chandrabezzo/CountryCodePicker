@@ -91,8 +91,10 @@ class CountryCodePicker extends StatefulWidget {
   final EdgeInsetsGeometry dialogItemPadding;
 
   final EdgeInsetsGeometry searchPadding;
+  String txtFieldHintTxt;
 
-  const CountryCodePicker({
+   CountryCodePicker({
+    this.txtFieldHintTxt="search",
     this.onChanged,
     this.onInit,
     this.initialSelection,
@@ -295,12 +297,25 @@ class CountryCodePickerState extends State<CountryCodePicker> {
   }
 
   void showCountryCodePickerDialog() async {
-    final item = await showModalBottomSheet(
-      barrierColor: widget.barrierColor ?? Colors.grey.withOpacity(0.5),
+    final item = await
+
+
+    showModalBottomSheet(
       context: context,
-      builder: (context) => Center(
-        child: Dialog(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.75,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(25.0),
+            topRight: const Radius.circular(25.0),
+          ),
+        ),
+        child: Center(
           child: SelectionDialog(
+            widget.txtFieldHintTxt,
             elements,
             favoriteElements,
             showCountryOnly: widget.showCountryOnly,
@@ -324,6 +339,13 @@ class CountryCodePickerState extends State<CountryCodePicker> {
         ),
       ),
     );
+
+
+
+
+
+
+
 
     if (item != null) {
       setState(() {

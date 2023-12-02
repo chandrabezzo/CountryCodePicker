@@ -32,8 +32,10 @@ class SelectionDialog extends StatefulWidget {
   final EdgeInsetsGeometry dialogItemPadding;
 
   final EdgeInsetsGeometry searchPadding;
+  String? txtFieldHintTxt="search";
 
   SelectionDialog(
+      this.txtFieldHintTxt,
     this.elements,
     this.favoriteElements, {
     Key? key,
@@ -103,48 +105,82 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 Padding(
                   padding: widget.searchPadding,
                   child: TextField(
+
+
+
+                    decoration: InputDecoration(
+
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.green.withOpacity(0.5),  // Change the border color as needed
+                          width: 2.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.green.withOpacity(0.5),  // Change the border color as needed
+                          width: 1.0,
+                        ),
+                      ),
+
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Colors.green.withOpacity(0.5),  // Change the border color as needed
+                          width: 1.0,          // Adjust the border width
+                        ),
+                      ),
+                      hintText: widget.txtFieldHintTxt,
+                      suffixIcon: Icon(Icons.search),
+                    ),
                     style: widget.searchStyle,
-                    decoration: widget.searchDecoration,
+                    //decoration: widget.searchDecoration,
                     onChanged: _filterElements,
                   ),
                 ),
               Expanded(
-                child: ListView(
-                  children: [
-                    widget.favoriteElements.isEmpty
-                        ? const DecoratedBox(decoration: BoxDecoration())
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ...widget.favoriteElements.map(
-                                (f) => InkWell(
-                                  onTap: () {
-                                    _selectItem(f);
-                                  },
-                                  child: Padding(
-                                    padding: widget.dialogItemPadding,
-                                    child: _buildOption(f),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                    children: [
+                      widget.favoriteElements.isEmpty
+                          ? const DecoratedBox(decoration: BoxDecoration())
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...widget.favoriteElements.map(
+                                  (f) => InkWell(
+                                    onTap: () {
+                                      _selectItem(f);
+                                    },
+                                    child: Padding(
+                                      padding: widget.dialogItemPadding,
+                                      child: _buildOption(f),
+                                    )
                                   )
-                                )
-                              ),
-                              const Divider(),
-                            ],
-                          ),
-                    if (filteredElements.isEmpty)
-                      _buildEmptySearchWidget(context)
-                    else
-                      ...filteredElements.map(
-                        (e) => InkWell(
-                          onTap: () {
-                            _selectItem(e);
-                          },
-                          child: Padding(
-                          padding: widget.dialogItemPadding,
-                            child: _buildOption(e),
+                                ),
+                                const Divider(),
+                              ],
+                            ),
+                      if (filteredElements.isEmpty)
+                        _buildEmptySearchWidget(context)
+                      else
+                        ...filteredElements.map(
+                          (e) => InkWell(
+                            onTap: () {
+                              _selectItem(e);
+                            },
+                            child: Padding(
+                            padding: widget.dialogItemPadding,
+                              child: _buildOption(e),
+                            )
                           )
-                        )
-                      ),
-                  ],
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ],
