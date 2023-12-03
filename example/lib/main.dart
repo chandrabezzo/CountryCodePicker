@@ -93,6 +93,7 @@ class MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
       ],
       home: Scaffold(
+        backgroundColor: Colors.red,
         appBar: AppBar(
           title: const Text('CountryPicker Example'),
         ),
@@ -105,7 +106,7 @@ class MyAppState extends State<MyApp> {
 
                 showBottomSheetheight: 0.80,
                 txtFieldHintTxt: "البحث",
-                clickableFilepicker:false,
+                clickableFilepicker:true,
                 hideLineAbovFiled:false ,
             textDirection: TextDirection.rtl,
 
