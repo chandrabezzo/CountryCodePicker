@@ -109,18 +109,12 @@ class MyAppState extends State<MyApp> {
                 hideLineAbovFiled:false ,
             textDirection: TextDirection.rtl,
 
-
             flagDecoration:BoxDecoration(
 
 
               color: Colors.white.withOpacity(0.7),
               shape: BoxShape.circle, // Make the container circular
               border: Border.all(color: Colors.grey)),
-
-
-
-
-
 
                 textStyle:TextStyle(color: Colors.black , fontWeight: FontWeight.bold , fontSize: 13),
 

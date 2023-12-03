@@ -36,10 +36,12 @@ class SelectionDialog extends StatefulWidget {
   double  height =0.70;
   TextDirection textDirection;
   bool clickableFilepicker;
-  Color txtFieldColor;
+  Color txtFieldBorderColor;
+  Color containerBorderColor;
 
   SelectionDialog(
-      this.txtFieldColor,
+      this.containerBorderColor,
+      this.txtFieldBorderColor,
       this.clickableFilepicker,
       this.textDirection,
       this.height,
@@ -89,7 +91,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 color: widget.backgroundColor ?? Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                   border: Border.all(
-                    color: widget.txtFieldColor,
+                    color: widget.containerBorderColor,
                     width: 1,
                   ),
                 boxShadow: [
@@ -145,14 +147,14 @@ class _SelectionDialogState extends State<SelectionDialog> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
-                            color: widget.txtFieldColor,// Change the border color as needed
+                            color: widget.txtFieldBorderColor,// Change the border color as needed
                             width: 2.0,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
-                            color: widget.txtFieldColor,  // Change the border color as needed
+                            color: widget.txtFieldBorderColor,  // Change the border color as needed
                             width: 1.0,
                           ),
                         ),
@@ -161,7 +163,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
-                            color: widget.txtFieldColor,  // Change the border color as needed
+                            color: widget.txtFieldBorderColor,  // Change the border color as needed
                             width: 1.0,          // Adjust the border width
                           ),
                         ),
@@ -208,7 +210,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
                         ...filteredElements.map(
                           (e) => InkWell(
                             onTap: () {
-                              _selectItem(e);
+                              widget.clickableFilepicker?
+                              _selectItem(e) :
+                              debugPrint("");
                             },
                             child: Padding(
                             padding: widget.dialogItemPadding,
@@ -261,7 +265,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                   ? e.toCountryStringOnly()
                   : e.toLongString(),
               overflow: TextOverflow.fade,
-              style: widget.textStyle,
+              style: TextStyle(fontWeight: FontWeight.w700),
             ),
           ),
         ],

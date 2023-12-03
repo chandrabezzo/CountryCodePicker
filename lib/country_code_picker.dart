@@ -98,10 +98,14 @@ class CountryCodePicker extends StatefulWidget {
   double withoutBottomSheetheight;
   TextDirection textDirection;
   Color txtFieldColor;
+  Color containerBorderColor;
+
 
 
 
   CountryCodePicker({
+    this.containerBorderColor=Colors.red,
+
     this.txtFieldColor=Colors.red,
 
     this.textDirection=TextDirection.rtl,
@@ -255,6 +259,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             ),
           ) :
           SelectionDialog(
+            widget.containerBorderColor,
             widget.txtFieldColor,
             widget.clickableFilepicker,
             widget.textDirection,
@@ -426,6 +431,8 @@ class CountryCodePickerState extends State<CountryCodePicker> {
 
               Expanded(
                 child: SelectionDialog(
+                  widget.containerBorderColor,
+
                   widget.txtFieldColor,
                   widget.clickableFilepicker,
                 
