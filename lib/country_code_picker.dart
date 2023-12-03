@@ -93,10 +93,12 @@ class CountryCodePicker extends StatefulWidget {
 
   final EdgeInsetsGeometry searchPadding;
   String txtFieldHintTxt;
-  bool clickableFilepicker;
-
+  bool clickableFilepicker
+  double height;
    CountryCodePicker({
      this.clickableFilepicker=true,
+     this.height= 0.75,
+
     this.txtFieldHintTxt="search",
     this.onChanged,
     this.onInit,
@@ -395,7 +397,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.85,
+        height: MediaQuery.of(context).size.height * widget.height,
         decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: new BorderRadius.only(
