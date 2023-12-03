@@ -93,7 +93,7 @@ class CountryCodePicker extends StatefulWidget {
 
   final EdgeInsetsGeometry searchPadding;
   String txtFieldHintTxt;
-  bool clickableFilepicker
+  bool clickableFilepicker;
   double height;
    CountryCodePicker({
      this.clickableFilepicker=true,
