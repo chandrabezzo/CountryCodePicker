@@ -177,7 +177,32 @@ class CountryCodePickerState extends State<CountryCodePicker> {
         child: widget.builder!(selectedItem),
       );
     } else {
-      internalWidget = TextButton(
+      internalWidget = SelectionDialog(
+
+        widget.txtFieldHintTxt,
+        elements,
+        favoriteElements,
+        showCountryOnly: widget.showCountryOnly,
+        emptySearchBuilder: widget.emptySearchBuilder,
+        searchDecoration: widget.searchDecoration,
+        searchStyle: widget.searchStyle,
+        textStyle: widget.dialogTextStyle,
+        boxDecoration: widget.boxDecoration,
+        showFlag: widget.showFlagDialog ?? widget.showFlag,
+        flagWidth: widget.flagWidth,
+        size: widget.dialogSize,
+        backgroundColor: widget.dialogBackgroundColor,
+        barrierColor: widget.barrierColor,
+        hideSearch: widget.hideSearch,
+        hideCloseIcon: widget.hideCloseIcon,
+        closeIcon: widget.closeIcon,
+        flagDecoration: widget.flagDecoration,
+        dialogItemPadding: widget.dialogItemPadding,
+        searchPadding: widget.searchPadding,
+      );
+
+
+          /*TextButton(
         onPressed: widget.enabled ? showCountryCodePickerDialog : null,
         child: Padding(
           padding: widget.padding,
@@ -235,7 +260,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             ],
           ),
         ),
-      );
+      );*/
     }
     return internalWidget;
   }
