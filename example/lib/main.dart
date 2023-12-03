@@ -101,23 +101,26 @@ class MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CountryCodePicker(
-                withoutBottomSheetheight: 0.50 ,
+                withoutBottomSheetheight: 0.80 ,
 
-                showBottomSheetheight: 0.60,
+                showBottomSheetheight: 0.80,
+                txtFieldHintTxt: "البحث",
+                clickableFilepicker:false,
+                hideLineAbovFiled:false ,
+            textDirection: TextDirection.rtl,
 
 
             flagDecoration:BoxDecoration(
+
 
               color: Colors.white.withOpacity(0.7),
               shape: BoxShape.circle, // Make the container circular
               border: Border.all(color: Colors.grey)),
 
-                txtFieldHintTxt: "البحث",
-                clickableFilepicker:true,
-                hideLineAbovFiled:true ,
 
 
-                flagWidth: 25,
+
+
 
                 textStyle:TextStyle(color: Colors.black , fontWeight: FontWeight.bold , fontSize: 13),
 

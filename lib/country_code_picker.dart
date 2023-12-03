@@ -96,8 +96,15 @@ class CountryCodePicker extends StatefulWidget {
   bool clickableFilepicker;
   double showBottomSheetheight;
   double withoutBottomSheetheight;
+  TextDirection textDirection;
+  Color txtFieldColor;
+
+
 
   CountryCodePicker({
+    this.txtFieldColor=Colors.red,
+
+    this.textDirection=TextDirection.rtl,
      this.clickableFilepicker=true,
      this.showBottomSheetheight= 0.75,
     this.withoutBottomSheetheight=0.70,
@@ -248,6 +255,10 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             ),
           ) :
           SelectionDialog(
+            widget.txtFieldColor,
+            widget.clickableFilepicker,
+            widget.textDirection,
+
             widget.withoutBottomSheetheight,
 
                   widget.txtFieldHintTxt,
@@ -413,29 +424,35 @@ class CountryCodePickerState extends State<CountryCodePicker> {
           child: Column(
             children: [
 
-              SelectionDialog(
-                widget.withoutBottomSheetheight,
-
-                widget.txtFieldHintTxt,
-                elements,
-                favoriteElements,
-                showCountryOnly: widget.showCountryOnly,
-                emptySearchBuilder: widget.emptySearchBuilder,
-                searchDecoration: widget.searchDecoration,
-                searchStyle: widget.searchStyle,
-                textStyle: widget.dialogTextStyle,
-                boxDecoration: widget.boxDecoration,
-                showFlag: widget.showFlagDialog ?? widget.showFlag,
-                flagWidth: widget.flagWidth,
-                size: widget.dialogSize,
-                backgroundColor: widget.dialogBackgroundColor,
-                barrierColor: widget.barrierColor,
-                hideSearch: widget.hideSearch,
-                hideLineAbovFiled: widget.hideLineAbovFiled,
-                closeIcon: widget.closeIcon,
-               // flagDecoration: widget.flagDecoration,
-                dialogItemPadding: widget.dialogItemPadding,
-                searchPadding: widget.searchPadding,
+              Expanded(
+                child: SelectionDialog(
+                  widget.txtFieldColor,
+                  widget.clickableFilepicker,
+                
+                  widget.textDirection,
+                  widget.withoutBottomSheetheight,
+                
+                  widget.txtFieldHintTxt,
+                  elements,
+                  favoriteElements,
+                  showCountryOnly: widget.showCountryOnly,
+                  emptySearchBuilder: widget.emptySearchBuilder,
+                  searchDecoration: widget.searchDecoration,
+                  searchStyle: widget.searchStyle,
+                  textStyle: widget.dialogTextStyle,
+                  boxDecoration: widget.boxDecoration,
+                  showFlag: widget.showFlagDialog ?? widget.showFlag,
+                  flagWidth: widget.flagWidth,
+                  size: widget.dialogSize,
+                  backgroundColor: widget.dialogBackgroundColor,
+                  barrierColor: widget.barrierColor,
+                  hideSearch: widget.hideSearch,
+                  hideLineAbovFiled: widget.hideLineAbovFiled,
+                  closeIcon: widget.closeIcon,
+                 // flagDecoration: widget.flagDecoration,
+                  dialogItemPadding: widget.dialogItemPadding,
+                  searchPadding: widget.searchPadding,
+                ),
               ),
             ],
           ),

@@ -34,8 +34,14 @@ class SelectionDialog extends StatefulWidget {
   final EdgeInsetsGeometry searchPadding;
   String? txtFieldHintTxt="search";
   double  height =0.70;
+  TextDirection textDirection;
+  bool clickableFilepicker;
+  Color txtFieldColor;
 
   SelectionDialog(
+      this.txtFieldColor,
+      this.clickableFilepicker,
+      this.textDirection,
       this.height,
       this.txtFieldHintTxt,
     this.elements,
@@ -73,7 +79,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(5.0),
         child: Container(
           clipBehavior: Clip.hardEdge,
           width: widget.size?.width ?? MediaQuery.of(context).size.width,
@@ -82,10 +88,10 @@ class _SelectionDialogState extends State<SelectionDialog> {
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                  /*border: Border.all(
-                    color: Colors.green.withOpacity(0.5),
+                  border: Border.all(
+                    color: widget.txtFieldColor,
                     width: 1,
-                  ),*/
+                  ),
                 boxShadow: [
                 ],
               ),
@@ -101,6 +107,8 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 onPressed: () => Navigator.pop(context),
               ),*/
 
+              SizedBox(height:10,) ,
+
               widget.hideLineAbovFiled?
               SizedBox():
                 Center(
@@ -111,7 +119,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                         color: Colors.black, // Set line color
                         borderRadius: BorderRadius.all(
                           Radius.circular(20)
-                          
+
                         ),
                       ),
                       height: 4.0, // Set line thickness
@@ -125,48 +133,52 @@ class _SelectionDialogState extends State<SelectionDialog> {
               if (!widget.hideSearch)
                 Padding(
                   padding: widget.searchPadding,
-                  child: TextField(
+                  child: Directionality(
+                    textDirection: widget.textDirection,
+
+                    child: TextField(
 
 
 
-                    decoration: InputDecoration(
+                      decoration: InputDecoration(
 
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color:
-
-                          Colors.green.withOpacity(0.5),  // Change the border color as needed
-                          width: 2.0,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: widget.txtFieldColor,// Change the border color as needed
+                            width: 2.0,
+                          ),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: Colors.green.withOpacity(0.5),  // Change the border color as needed
-                          width: 1.0,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: widget.txtFieldColor,  // Change the border color as needed
+                            width: 1.0,
+                          ),
                         ),
-                      ),
 
 
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: Colors.green.withOpacity(0.5),  // Change the border color as needed
-                          width: 1.0,          // Adjust the border width
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: widget.txtFieldColor,  // Change the border color as needed
+                            width: 1.0,          // Adjust the border width
+                          ),
                         ),
+                        hintText: widget.txtFieldHintTxt,
+                        suffixIcon: Icon(Icons.search),
                       ),
-                      hintText: widget.txtFieldHintTxt,
-                      suffixIcon: Icon(Icons.search),
+                      style: widget.searchStyle,
+                      //decoration: widget.searchDecoration,
+                      onChanged: _filterElements,
                     ),
-                    style: widget.searchStyle,
-                    //decoration: widget.searchDecoration,
-                    onChanged: _filterElements,
                   ),
                 ),
+              SizedBox(height:10,) ,
+
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: ListView(
                     children: [
                       widget.favoriteElements.isEmpty
@@ -177,7 +189,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
                                 ...widget.favoriteElements.map(
                                   (f) => InkWell(
                                     onTap: () {
-                                      _selectItem(f);
+                                      widget.clickableFilepicker?
+                                      _selectItem(f) :
+                                          debugPrint("");
                                     },
                                     child: Padding(
                                       padding: widget.dialogItemPadding,
@@ -206,6 +220,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                   ),
                 ),
               ),
+
             ],
           ),
         ),
@@ -222,12 +237,20 @@ class _SelectionDialogState extends State<SelectionDialog> {
               child: Container(
                 margin: const EdgeInsets.only(right: 16.0),
                // decoration: widget.flagDecoration,
-                clipBehavior:
-                    widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
-                child: Image.asset(
-                  e.flagUri!,
-                  package: 'country_code_picker',
-                  width: widget.flagWidth,
+                /*clipBehavior:
+                    widget.flagDecoration == null ? Clip.none : Clip.hardEdge,*/
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5.0), // Set the circular border radius
+
+                  child: Image.asset(
+                    e.flagUri!,
+                    package: 'country_code_picker',
+                    width: 40,
+
+                    //widget.flagWidth,
+                    fit: BoxFit.cover, // Adjust the BoxFit as needed
+
+                  ),
                 ),
               ),
             ),
