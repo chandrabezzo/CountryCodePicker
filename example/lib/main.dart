@@ -103,6 +103,9 @@ class MyAppState extends State<MyApp> {
               CountryCodePicker(
                 showFlag: true,
                 onChanged: print,
+                clickableFilepicker:false,
+                hideLineAbovFiled:true ,
+
                 // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                 initialSelection: 'IT',
                 favorite: const ['+39', 'FR'],

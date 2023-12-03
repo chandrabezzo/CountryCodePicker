@@ -17,7 +17,7 @@ class SelectionDialog extends StatefulWidget {
   final Decoration? flagDecoration;
   final Size? size;
   final bool hideSearch;
-  final bool hideCloseIcon;
+  final bool hideLineAbovFiled;
   final Icon? closeIcon;
 
   /// Background color of SelectionDialog
@@ -52,7 +52,7 @@ class SelectionDialog extends StatefulWidget {
     this.backgroundColor,
     this.barrierColor,
     this.hideSearch = false,
-    this.hideCloseIcon = false,
+    this.hideLineAbovFiled = false,
     this.closeIcon,
     this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
@@ -80,10 +80,10 @@ class _SelectionDialogState extends State<SelectionDialog> {
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                  border: Border.all(
+                  /*border: Border.all(
                     color: Colors.green.withOpacity(0.5),
                     width: 1,
-                  ),
+                  ),*/
                 boxShadow: [
                 ],
               ),
@@ -91,13 +91,33 @@ class _SelectionDialogState extends State<SelectionDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              if (!widget.hideCloseIcon)
+            //  if (!widget.hideCloseIcon)
              /* IconButton(
                 padding: const EdgeInsets.all(0),
                 iconSize: 20,
                 icon: widget.closeIcon!,
                 onPressed: () => Navigator.pop(context),
               ),*/
+
+              widget.hideLineAbovFiled?
+              SizedBox():
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black, // Set line color
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20)
+                          
+                        ),
+                      ),
+                      height: 4.0, // Set line thickness
+                      width: 100.0, // Set line length
+                    ),
+                  ),
+                ),
+
 
               SizedBox(height:25,) ,
               if (!widget.hideSearch)
@@ -112,7 +132,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: BorderSide(
-                          color: Colors.green.withOpacity(0.5),  // Change the border color as needed
+                          color:
+
+                          Colors.green.withOpacity(0.5),  // Change the border color as needed
                           width: 2.0,
                         ),
                       ),
@@ -197,7 +219,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
             Flexible(
               child: Container(
                 margin: const EdgeInsets.only(right: 16.0),
-                decoration: widget.flagDecoration,
+               // decoration: widget.flagDecoration,
                 clipBehavior:
                     widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
                 child: Image.asset(

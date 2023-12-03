@@ -77,7 +77,7 @@ class CountryCodePicker extends StatefulWidget {
   final bool hideSearch;
 
   /// Set to true if you want to hide the close icon dialog
-  final bool hideCloseIcon;
+  final bool hideLineAbovFiled;
 
   /// Set to true if you want to show drop down button
   final bool showDropDownButton;
@@ -126,7 +126,7 @@ class CountryCodePicker extends StatefulWidget {
     this.comparator,
     this.countryFilter,
     this.hideSearch = false,
-    this.hideCloseIcon = false,
+    this.hideLineAbovFiled = false,
     this.showDropDownButton = false,
     this.dialogSize,
     this.dialogBackgroundColor,
@@ -259,7 +259,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
         backgroundColor: widget.dialogBackgroundColor,
         barrierColor: widget.barrierColor,
         hideSearch: widget.hideSearch,
-        hideCloseIcon: widget.hideCloseIcon,
+        hideLineAbovFiled: widget.hideLineAbovFiled,
         closeIcon: widget.closeIcon,
         flagDecoration: widget.flagDecoration,
         dialogItemPadding: widget.dialogItemPadding,
@@ -395,7 +395,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.75,
+        height: MediaQuery.of(context).size.height * 0.85,
         decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: new BorderRadius.only(
@@ -404,27 +404,32 @@ class CountryCodePickerState extends State<CountryCodePicker> {
           ),
         ),
         child: Center(
-          child: SelectionDialog(
-            widget.txtFieldHintTxt,
-            elements,
-            favoriteElements,
-            showCountryOnly: widget.showCountryOnly,
-            emptySearchBuilder: widget.emptySearchBuilder,
-            searchDecoration: widget.searchDecoration,
-            searchStyle: widget.searchStyle,
-            textStyle: widget.dialogTextStyle,
-            boxDecoration: widget.boxDecoration,
-            showFlag: widget.showFlagDialog ?? widget.showFlag,
-            flagWidth: widget.flagWidth,
-            size: widget.dialogSize,
-            backgroundColor: widget.dialogBackgroundColor,
-            barrierColor: widget.barrierColor,
-            hideSearch: widget.hideSearch,
-            hideCloseIcon: widget.hideCloseIcon,
-            closeIcon: widget.closeIcon,
-            flagDecoration: widget.flagDecoration,
-            dialogItemPadding: widget.dialogItemPadding,
-            searchPadding: widget.searchPadding,
+          child: Column(
+            children: [
+
+              SelectionDialog(
+                widget.txtFieldHintTxt,
+                elements,
+                favoriteElements,
+                showCountryOnly: widget.showCountryOnly,
+                emptySearchBuilder: widget.emptySearchBuilder,
+                searchDecoration: widget.searchDecoration,
+                searchStyle: widget.searchStyle,
+                textStyle: widget.dialogTextStyle,
+                boxDecoration: widget.boxDecoration,
+                showFlag: widget.showFlagDialog ?? widget.showFlag,
+                flagWidth: widget.flagWidth,
+                size: widget.dialogSize,
+                backgroundColor: widget.dialogBackgroundColor,
+                barrierColor: widget.barrierColor,
+                hideSearch: widget.hideSearch,
+                hideLineAbovFiled: widget.hideLineAbovFiled,
+                closeIcon: widget.closeIcon,
+                flagDecoration: widget.flagDecoration,
+                dialogItemPadding: widget.dialogItemPadding,
+                searchPadding: widget.searchPadding,
+              ),
+            ],
           ),
         ),
       ),
