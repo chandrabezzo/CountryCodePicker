@@ -101,20 +101,42 @@ class MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CountryCodePicker(
-                showFlag: true,
-                onChanged: print,
-                clickableFilepicker:false,
+                withoutBottomSheetheight: 0.50 ,
+
+                showBottomSheetheight: 0.60,
+
+
+            flagDecoration:BoxDecoration(
+
+              color: Colors.white.withOpacity(0.7),
+              shape: BoxShape.circle, // Make the container circular
+              border: Border.all(color: Colors.grey)),
+
+                txtFieldHintTxt: "البحث",
+                clickableFilepicker:true,
                 hideLineAbovFiled:true ,
 
-                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                initialSelection: 'IT',
-                favorite: const ['+39', 'FR'],
-                countryFilter: const ['IT', 'FR'],
-                showFlagDialog: true,
-                comparator: (a, b) => b.name!.compareTo(a.name!),
-                //Get the country information relevant to the initial selection
-                onInit: (code) => debugPrint(
-                    "on init ${code?.name} ${code?.dialCode} ${code?.name}"),
+
+                flagWidth: 25,
+
+                textStyle:TextStyle(color: Colors.black , fontWeight: FontWeight.bold , fontSize: 13),
+
+
+                /*flagDecoration:BoxDecoration(
+
+                    color: Colors.white.withOpacity(0.7),
+                    shape: BoxShape.circle, // Make the container circular
+                    border: Border.all(color: Colors.grey),
+
+                  ),*/
+                onChanged: (value) {
+                  // Handle country code change
+                  print(value);
+                },
+                // Initial selection and favorite country
+                initialSelection: 'SA',
+                // Add Saudi Arabia to the favorites
+                favorite: ['+966', 'SA'],
               ),
 
             ],

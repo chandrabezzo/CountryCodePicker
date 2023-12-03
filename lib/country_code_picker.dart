@@ -94,10 +94,13 @@ class CountryCodePicker extends StatefulWidget {
   final EdgeInsetsGeometry searchPadding;
   String txtFieldHintTxt;
   bool clickableFilepicker;
-  double height;
-   CountryCodePicker({
+  double showBottomSheetheight;
+  double withoutBottomSheetheight;
+
+  CountryCodePicker({
      this.clickableFilepicker=true,
-     this.height= 0.75,
+     this.showBottomSheetheight= 0.75,
+    this.withoutBottomSheetheight=0.70,
 
     this.txtFieldHintTxt="search",
     this.onChanged,
@@ -245,28 +248,29 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             ),
           ) :
           SelectionDialog(
+            widget.withoutBottomSheetheight,
 
-        widget.txtFieldHintTxt,
-        elements,
-        favoriteElements,
-        showCountryOnly: widget.showCountryOnly,
-        emptySearchBuilder: widget.emptySearchBuilder,
-        searchDecoration: widget.searchDecoration,
-        searchStyle: widget.searchStyle,
-        textStyle: widget.dialogTextStyle,
-        boxDecoration: widget.boxDecoration,
-        showFlag: widget.showFlagDialog ?? widget.showFlag,
-        flagWidth: widget.flagWidth,
-        size: widget.dialogSize,
-        backgroundColor: widget.dialogBackgroundColor,
-        barrierColor: widget.barrierColor,
-        hideSearch: widget.hideSearch,
-        hideLineAbovFiled: widget.hideLineAbovFiled,
-        closeIcon: widget.closeIcon,
-        flagDecoration: widget.flagDecoration,
-        dialogItemPadding: widget.dialogItemPadding,
-        searchPadding: widget.searchPadding,
-      );
+                  widget.txtFieldHintTxt,
+                  elements,
+                  favoriteElements,
+                  showCountryOnly: widget.showCountryOnly,
+                  emptySearchBuilder: widget.emptySearchBuilder,
+                  searchDecoration: widget.searchDecoration,
+                  searchStyle: widget.searchStyle,
+                  textStyle: widget.dialogTextStyle,
+                  boxDecoration: widget.boxDecoration,
+                  showFlag: widget.showFlagDialog ?? widget.showFlag,
+                  flagWidth: widget.flagWidth,
+                  size: widget.dialogSize,
+                  backgroundColor: widget.dialogBackgroundColor,
+                  barrierColor: widget.barrierColor,
+                  hideSearch: widget.hideSearch,
+                  hideLineAbovFiled: widget.hideLineAbovFiled,
+                  closeIcon: widget.closeIcon,
+                  flagDecoration: widget.flagDecoration,
+                  dialogItemPadding: widget.dialogItemPadding,
+                  searchPadding: widget.searchPadding,
+                );
 
 
           /*TextButton(
@@ -397,7 +401,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * widget.height,
+        height: MediaQuery.of(context).size.height * widget.showBottomSheetheight,
         decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: new BorderRadius.only(
@@ -410,6 +414,8 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             children: [
 
               SelectionDialog(
+                widget.withoutBottomSheetheight,
+
                 widget.txtFieldHintTxt,
                 elements,
                 favoriteElements,
@@ -427,7 +433,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
                 hideSearch: widget.hideSearch,
                 hideLineAbovFiled: widget.hideLineAbovFiled,
                 closeIcon: widget.closeIcon,
-                flagDecoration: widget.flagDecoration,
+               // flagDecoration: widget.flagDecoration,
                 dialogItemPadding: widget.dialogItemPadding,
                 searchPadding: widget.searchPadding,
               ),

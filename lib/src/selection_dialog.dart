@@ -33,8 +33,10 @@ class SelectionDialog extends StatefulWidget {
 
   final EdgeInsetsGeometry searchPadding;
   String? txtFieldHintTxt="search";
+  double  height =0.70;
 
   SelectionDialog(
+      this.height,
       this.txtFieldHintTxt,
     this.elements,
     this.favoriteElements, {
@@ -75,7 +77,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
         child: Container(
           clipBehavior: Clip.hardEdge,
           width: widget.size?.width ?? MediaQuery.of(context).size.width,
-          height: widget.size?.height ?? MediaQuery.of(context).size.height * 0.70,
+          height: widget.size?.height ?? MediaQuery.of(context).size.height * widget.height,
           decoration: widget.boxDecoration ??
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
