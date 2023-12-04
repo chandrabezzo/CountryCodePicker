@@ -201,7 +201,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                                     )
                                   )
                                 ),
-                                const Divider(),
+                                 Divider(color: Theme.of(context).colorScheme.surface,thickness: 0.2,),
                               ],
                             ),
                       if (filteredElements.isEmpty)
