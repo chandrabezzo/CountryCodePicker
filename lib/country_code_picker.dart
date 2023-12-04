@@ -419,7 +419,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height * widget.showBottomSheetheight,
         decoration: new BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: new BorderRadius.only(
             topLeft: const Radius.circular(25.0),
             topRight: const Radius.circular(25.0),

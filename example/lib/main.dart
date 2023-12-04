@@ -102,15 +102,21 @@ class MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CountryCodePicker(
+
                 withoutBottomSheetheight: 0.80 ,
 
                 boxDecoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(18),
-                ),
+                  border: Border.all(
+                    color: Colors.red,
+
+                    // Border color
+                    width: 2.0, // Border width
+                  ),              ),
                 showBottomSheetheight: 0.80,
                 txtFieldHintTxt: "البحث",
-                clickableFilepicker:false,
+                clickableFilepicker:true,
                 hideLineAbovFiled:false ,
             textDirection: TextDirection.rtl,
 
