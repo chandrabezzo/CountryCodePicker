@@ -168,7 +168,7 @@ class _SelectionDialogState extends State<SelectionDialog> {
                           ),
                         ),
                         hintText: widget.txtFieldHintTxt,
-                        suffixIcon: Icon(Icons.search),
+                        suffixIcon: Icon(Icons.search , color: Colors.grey ,),
                       ),
                       style: widget.searchStyle,
                       //decoration: widget.searchDecoration,

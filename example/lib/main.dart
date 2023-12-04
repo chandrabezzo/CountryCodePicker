@@ -104,9 +104,13 @@ class MyAppState extends State<MyApp> {
               CountryCodePicker(
                 withoutBottomSheetheight: 0.80 ,
 
+                boxDecoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  borderRadius: BorderRadius.circular(18),
+                ),
                 showBottomSheetheight: 0.80,
                 txtFieldHintTxt: "البحث",
-                clickableFilepicker:true,
+                clickableFilepicker:false,
                 hideLineAbovFiled:false ,
             textDirection: TextDirection.rtl,
 
