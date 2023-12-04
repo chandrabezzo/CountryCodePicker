@@ -6,7 +6,7 @@ import 'country_localizations.dart';
 /// selection dialog used for selection of the country code
 class SelectionDialog extends StatefulWidget {
   final List<CountryCode> elements;
-  final bool? showCountryOnly;
+  final bool? showCodeOnly;
   final InputDecoration searchDecoration;
   final TextStyle? searchStyle;
   final TextStyle? textStyle;
@@ -49,7 +49,7 @@ class SelectionDialog extends StatefulWidget {
     this.elements,
     this.favoriteElements, {
     Key? key,
-    this.showCountryOnly,
+    this.showCodeOnly,
     this.emptySearchBuilder,
     InputDecoration searchDecoration = const InputDecoration(),
     this.searchStyle,
@@ -258,11 +258,14 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 ),
               ),
             ),
+
+
+
           Expanded(
             flex: 4,
             child: Text(
-              widget.showCountryOnly!
-                  ? e.toCountryStringOnly()
+              widget.showCodeOnly!
+                  ? e.codeOnlyString()
                   : e.toLongString(),
               overflow: TextOverflow.fade,
               style: TextStyle(fontWeight: FontWeight.w700),

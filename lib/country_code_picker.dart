@@ -20,7 +20,7 @@ class CountryCodePicker extends StatefulWidget {
   final List<String> favorite;
   final TextStyle? textStyle;
   final EdgeInsetsGeometry padding;
-  final bool showCountryOnly;
+  final bool showCodeOnly;
   final InputDecoration searchDecoration;
   final TextStyle? searchStyle;
   final TextStyle? dialogTextStyle;
@@ -120,7 +120,7 @@ class CountryCodePicker extends StatefulWidget {
     this.favorite = const [],
     this.textStyle,
     this.padding = const EdgeInsets.all(8.0),
-    this.showCountryOnly = false,
+    this.showCodeOnly = false,
     this.searchDecoration = const InputDecoration(),
     this.searchStyle,
     this.dialogTextStyle,
@@ -269,7 +269,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
                   widget.txtFieldHintTxt,
                   elements,
                   favoriteElements,
-                  showCountryOnly: widget.showCountryOnly,
+                  showCodeOnly: widget.showCodeOnly,
                   emptySearchBuilder: widget.emptySearchBuilder,
                   searchDecoration: widget.searchDecoration,
                   searchStyle: widget.searchStyle,
@@ -442,7 +442,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
                   widget.txtFieldHintTxt,
                   elements,
                   favoriteElements,
-                  showCountryOnly: widget.showCountryOnly,
+                  showCodeOnly: widget.showCodeOnly,
                   emptySearchBuilder: widget.emptySearchBuilder,
                   searchDecoration: widget.searchDecoration,
                   searchStyle: widget.searchStyle,

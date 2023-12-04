@@ -103,6 +103,7 @@ class MyAppState extends State<MyApp> {
             children: <Widget>[
               CountryCodePicker(
 
+                showCodeOnly: false,
                 withoutBottomSheetheight: 0.80 ,
 
                 boxDecoration: BoxDecoration(
