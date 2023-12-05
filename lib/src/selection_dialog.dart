@@ -178,49 +178,53 @@ class _SelectionDialogState extends State<SelectionDialog> {
                 ),
               SizedBox(height:10,) ,
 
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: ListView(
-                    children: [
-                      widget.favoriteElements.isEmpty
-                          ? const DecoratedBox(decoration: BoxDecoration())
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...widget.favoriteElements.map(
-                                  (f) => InkWell(
-                                    onTap: () {
-                                      widget.clickableFilepicker?
-                                      _selectItem(f) :
-                                          debugPrint("");
-                                    },
-                                    child: Padding(
-                                      padding: widget.dialogItemPadding,
-                                      child: _buildOption(f),
+              Directionality(
+                textDirection: TextDirection.ltr,
+
+                child: Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: ListView(
+                      children: [
+                        widget.favoriteElements.isEmpty
+                            ? const DecoratedBox(decoration: BoxDecoration())
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ...widget.favoriteElements.map(
+                                    (f) => InkWell(
+                                      onTap: () {
+                                        widget.clickableFilepicker?
+                                        _selectItem(f) :
+                                            debugPrint("");
+                                      },
+                                      child: Padding(
+                                        padding: widget.dialogItemPadding,
+                                        child: _buildOption(f),
+                                      )
                                     )
-                                  )
-                                ),
-                                 Divider(color: Theme.of(context).colorScheme.surface,thickness: 0.2,),
-                              ],
-                            ),
-                      if (filteredElements.isEmpty)
-                        _buildEmptySearchWidget(context)
-                      else
-                        ...filteredElements.map(
-                          (e) => InkWell(
-                            onTap: () {
-                              widget.clickableFilepicker?
-                              _selectItem(e) :
-                              debugPrint("");
-                            },
-                            child: Padding(
-                            padding: widget.dialogItemPadding,
-                              child: _buildOption(e),
+                                  ),
+                                   Divider(color: Theme.of(context).colorScheme.surface,thickness: 0.2,),
+                                ],
+                              ),
+                        if (filteredElements.isEmpty)
+                          _buildEmptySearchWidget(context)
+                        else
+                          ...filteredElements.map(
+                            (e) => InkWell(
+                              onTap: () {
+                                widget.clickableFilepicker?
+                                _selectItem(e) :
+                                debugPrint("");
+                              },
+                              child: Padding(
+                              padding: widget.dialogItemPadding,
+                                child: _buildOption(e),
+                              )
                             )
-                          )
-                        ),
-                    ],
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),
