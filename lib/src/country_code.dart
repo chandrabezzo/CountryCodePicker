@@ -64,6 +64,8 @@ class CountryCode {
   String toString() => "$dialCode";
 
   String toLongString() => "$dialCode ${toCountryStringOnly()}";
+  String codeOnlyString() => "$dialCode";
+
 
   String toCountryStringOnly() {
     return '$_cleanName';

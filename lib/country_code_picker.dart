@@ -1,5 +1,6 @@
 library country_code_picker;
 
+
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class CountryCodePicker extends StatefulWidget {
   final List<String> favorite;
   final TextStyle? textStyle;
   final EdgeInsetsGeometry padding;
-  final bool showCountryOnly;
+  final bool showCodeOnly;
   final InputDecoration searchDecoration;
   final TextStyle? searchStyle;
   final TextStyle? dialogTextStyle;
@@ -76,7 +77,7 @@ class CountryCodePicker extends StatefulWidget {
   final bool hideSearch;
 
   /// Set to true if you want to hide the close icon dialog
-  final bool hideCloseIcon;
+  final bool hideLineAbovFiled;
 
   /// Set to true if you want to show drop down button
   final bool showDropDownButton;
@@ -91,15 +92,35 @@ class CountryCodePicker extends StatefulWidget {
   final EdgeInsetsGeometry dialogItemPadding;
 
   final EdgeInsetsGeometry searchPadding;
+  String txtFieldHintTxt;
+  bool clickableFilepicker;
+  double showBottomSheetheight;
+  double withoutBottomSheetheight;
+  TextDirection textDirection;
+  Color txtFieldColor;
+  Color containerBorderColor;
 
-  const CountryCodePicker({
+
+
+
+  CountryCodePicker({
+    this.containerBorderColor=Colors.red,
+
+    this.txtFieldColor=Colors.red,
+
+    this.textDirection=TextDirection.rtl,
+     this.clickableFilepicker=true,
+     this.showBottomSheetheight= 0.75,
+    this.withoutBottomSheetheight=0.70,
+
+    this.txtFieldHintTxt="search",
     this.onChanged,
     this.onInit,
     this.initialSelection,
     this.favorite = const [],
     this.textStyle,
     this.padding = const EdgeInsets.all(8.0),
-    this.showCountryOnly = false,
+    this.showCodeOnly = false,
     this.searchDecoration = const InputDecoration(),
     this.searchStyle,
     this.dialogTextStyle,
@@ -121,7 +142,7 @@ class CountryCodePicker extends StatefulWidget {
     this.comparator,
     this.countryFilter,
     this.hideSearch = false,
-    this.hideCloseIcon = false,
+    this.hideLineAbovFiled = false,
     this.showDropDownButton = false,
     this.dialogSize,
     this.dialogBackgroundColor,
@@ -175,7 +196,100 @@ class CountryCodePickerState extends State<CountryCodePicker> {
         child: widget.builder!(selectedItem),
       );
     } else {
-      internalWidget = TextButton(
+      internalWidget =
+
+          widget.clickableFilepicker?
+          TextButton(
+            onPressed: widget.enabled ? showCountryCodePickerDialog : null,
+            child: Padding(
+              padding: widget.padding,
+              child: Flex(
+                direction: Axis.horizontal,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  if (widget.showFlagMain != null
+                      ? widget.showFlagMain!
+                      : widget.showFlag)
+                    Flexible(
+                      flex: widget.alignLeft ? 0 : 1,
+                      fit: widget.alignLeft ? FlexFit.tight : FlexFit.loose,
+                      child: Container(
+                        clipBehavior: widget.flagDecoration == null
+                            ? Clip.none
+                            : Clip.hardEdge,
+                        decoration: widget.flagDecoration,
+                        margin: widget.alignLeft
+                            ? const EdgeInsets.only(right: 16.0, left: 8.0)
+                            : const EdgeInsets.only(right: 0.0),
+                        child: Image.asset(
+                          selectedItem!.flagUri!,
+                          package: 'country_code_picker',
+                          width: widget.flagWidth,
+                        ),
+                      ),
+                    ),
+                  if (!widget.hideMainText)
+                    Flexible(
+                      fit: widget.alignLeft ? FlexFit.tight : FlexFit.loose,
+                      child: Text(
+                        widget.showOnlyCountryWhenClosed
+                            ? selectedItem!.toCountryStringOnly()
+                            : selectedItem.toString(),
+                        style: widget.textStyle ??
+                            Theme.of(context).textTheme.labelLarge,
+                        overflow: widget.textOverflow,
+                      ),
+                    ),
+                  if (widget.showDropDownButton)
+                    Flexible(
+                      flex: widget.alignLeft ? 0 : 1,
+                      fit: widget.alignLeft ? FlexFit.tight : FlexFit.loose,
+                      child: Padding(
+                          padding: widget.alignLeft
+                              ? const EdgeInsets.only(right: 16.0, left: 8.0)
+                              : const EdgeInsets.only(right: 16.0),
+                          child: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.grey,
+                            size: widget.flagWidth,
+                          )),
+                    ),
+                ],
+              ),
+            ),
+          ) :
+          SelectionDialog(
+            widget.containerBorderColor,
+            widget.txtFieldColor,
+            widget.clickableFilepicker,
+            widget.textDirection,
+
+            widget.withoutBottomSheetheight,
+
+                  widget.txtFieldHintTxt,
+                  elements,
+                  favoriteElements,
+                  showCodeOnly: widget.showCodeOnly,
+                  emptySearchBuilder: widget.emptySearchBuilder,
+                  searchDecoration: widget.searchDecoration,
+                  searchStyle: widget.searchStyle,
+                  textStyle: widget.dialogTextStyle,
+                  boxDecoration: widget.boxDecoration,
+                  showFlag: widget.showFlagDialog ?? widget.showFlag,
+                  flagWidth: widget.flagWidth,
+                  size: widget.dialogSize,
+                  backgroundColor: widget.dialogBackgroundColor,
+                  barrierColor: widget.barrierColor,
+                  hideSearch: widget.hideSearch,
+                  hideLineAbovFiled: widget.hideLineAbovFiled,
+                  closeIcon: widget.closeIcon,
+                  flagDecoration: widget.flagDecoration,
+                  dialogItemPadding: widget.dialogItemPadding,
+                  searchPadding: widget.searchPadding,
+                );
+
+
+          /*TextButton(
         onPressed: widget.enabled ? showCountryCodePickerDialog : null,
         child: Padding(
           padding: widget.padding,
@@ -233,7 +347,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             ],
           ),
         ),
-      );
+      );*/
     }
     return internalWidget;
   }
@@ -295,35 +409,70 @@ class CountryCodePickerState extends State<CountryCodePicker> {
   }
 
   void showCountryCodePickerDialog() async {
-    final item = await showDialog(
-      barrierColor: widget.barrierColor ?? Colors.grey.withOpacity(0.5),
+    final item = await
+
+
+    showModalBottomSheet(
       context: context,
-      builder: (context) => Center(
-        child: Dialog(
-          child: SelectionDialog(
-            elements,
-            favoriteElements,
-            showCountryOnly: widget.showCountryOnly,
-            emptySearchBuilder: widget.emptySearchBuilder,
-            searchDecoration: widget.searchDecoration,
-            searchStyle: widget.searchStyle,
-            textStyle: widget.dialogTextStyle,
-            boxDecoration: widget.boxDecoration,
-            showFlag: widget.showFlagDialog ?? widget.showFlag,
-            flagWidth: widget.flagWidth,
-            size: widget.dialogSize,
-            backgroundColor: widget.dialogBackgroundColor,
-            barrierColor: widget.barrierColor,
-            hideSearch: widget.hideSearch,
-            hideCloseIcon: widget.hideCloseIcon,
-            closeIcon: widget.closeIcon,
-            flagDecoration: widget.flagDecoration,
-            dialogItemPadding: widget.dialogItemPadding,
-            searchPadding: widget.searchPadding,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * widget.showBottomSheetheight,
+        decoration: new BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(25.0),
+            topRight: const Radius.circular(25.0),
+          ),
+        ),
+        child: Center(
+          child: Column(
+            children: [
+
+              Expanded(
+                child: SelectionDialog(
+                  widget.containerBorderColor,
+
+                  widget.txtFieldColor,
+                  widget.clickableFilepicker,
+                
+                  widget.textDirection,
+                  widget.withoutBottomSheetheight,
+                
+                  widget.txtFieldHintTxt,
+                  elements,
+                  favoriteElements,
+                  showCodeOnly: widget.showCodeOnly,
+                  emptySearchBuilder: widget.emptySearchBuilder,
+                  searchDecoration: widget.searchDecoration,
+                  searchStyle: widget.searchStyle,
+                  textStyle: widget.dialogTextStyle,
+                  boxDecoration: widget.boxDecoration,
+                  showFlag: widget.showFlagDialog ?? widget.showFlag,
+                  flagWidth: widget.flagWidth,
+                  size: widget.dialogSize,
+                  backgroundColor: widget.dialogBackgroundColor,
+                  barrierColor: widget.barrierColor,
+                  hideSearch: widget.hideSearch,
+                  hideLineAbovFiled: widget.hideLineAbovFiled,
+                  closeIcon: widget.closeIcon,
+                 // flagDecoration: widget.flagDecoration,
+                  dialogItemPadding: widget.dialogItemPadding,
+                  searchPadding: widget.searchPadding,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
+
+
+
+
+
+
+
 
     if (item != null) {
       setState(() {
