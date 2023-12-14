@@ -52,7 +52,8 @@ class SelectionDialog extends StatefulWidget {
     this.hideSearch = false,
     this.hideCloseIcon = false,
     this.closeIcon,
-    this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+    this.dialogItemPadding =
+        const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
   })  : searchDecoration = searchDecoration.prefixIcon == null
             ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search))
@@ -68,89 +69,99 @@ class _SelectionDialogState extends State<SelectionDialog> {
   late List<CountryCode> filteredElements;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(0.0),
-        child: Container(
-          clipBehavior: Clip.hardEdge,
-          width: widget.size?.width ?? MediaQuery.of(context).size.width,
-          height:
-              widget.size?.height ?? MediaQuery.of(context).size.height * 0.85,
-          decoration: widget.boxDecoration ??
-              BoxDecoration(
-                color: widget.backgroundColor ?? Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                boxShadow: [
-                  BoxShadow(
-                    color: widget.barrierColor ?? Colors.grey.withOpacity(1),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              if (!widget.hideCloseIcon)
-              IconButton(
-                padding: const EdgeInsets.all(0),
-                iconSize: 20,
-                icon: widget.closeIcon!,
-                onPressed: () => Navigator.pop(context),
-              ),
-              if (!widget.hideSearch)
-                Padding(
-                  padding: widget.searchPadding,
-                  child: TextField(
-                    style: widget.searchStyle,
-                    decoration: widget.searchDecoration,
-                    onChanged: _filterElements,
-                  ),
-                ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    widget.favoriteElements.isEmpty
-                        ? const DecoratedBox(decoration: BoxDecoration())
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ...widget.favoriteElements.map(
-                                (f) => InkWell(
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (_) {
+                return Container(
+                  clipBehavior: Clip.hardEdge,
+                  width:
+                      widget.size?.width ?? MediaQuery.of(context).size.width,
+                  height: widget.size?.height ??
+                      MediaQuery.of(context).size.height * 0.85,
+                  decoration: widget.boxDecoration ??
+                      BoxDecoration(
+                        color: widget.backgroundColor ?? Colors.white,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8.0)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: widget.barrierColor ??
+                                Colors.grey.withOpacity(1),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (!widget.hideCloseIcon)
+                        IconButton(
+                          padding: const EdgeInsets.all(0),
+                          iconSize: 20,
+                          icon: widget.closeIcon!,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      if (!widget.hideSearch)
+                        Padding(
+                          padding: widget.searchPadding,
+                          child: TextField(
+                            style: widget.searchStyle,
+                            decoration: widget.searchDecoration,
+                            onChanged: _filterElements,
+                          ),
+                        ),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            widget.favoriteElements.isEmpty
+                                ? const DecoratedBox(
+                                    decoration: BoxDecoration())
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ...widget.favoriteElements
+                                          .map((f) => InkWell(
+                                              onTap: () {
+                                                _selectItem(f);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    widget.dialogItemPadding,
+                                                child: _buildOption(f),
+                                              ))),
+                                      const Divider(),
+                                    ],
+                                  ),
+                            if (filteredElements.isEmpty)
+                              _buildEmptySearchWidget(context)
+                            else
+                              ...filteredElements.map((e) => InkWell(
                                   onTap: () {
-                                    _selectItem(f);
+                                    _selectItem(e);
                                   },
                                   child: Padding(
                                     padding: widget.dialogItemPadding,
-                                    child: _buildOption(f),
-                                  )
-                                )
-                              ),
-                              const Divider(),
-                            ],
-                          ),
-                    if (filteredElements.isEmpty)
-                      _buildEmptySearchWidget(context)
-                    else
-                      ...filteredElements.map(
-                        (e) => InkWell(
-                          onTap: () {
-                            _selectItem(e);
-                          },
-                          child: Padding(
-                          padding: widget.dialogItemPadding,
-                            child: _buildOption(e),
-                          )
-                        )
+                                    child: _buildOption(e),
+                                  ))),
+                          ],
+                        ),
                       ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+                    ],
+                  ),
+                );
+              });
+        },
+        icon: Icon(Icons.abc),
+        label: Text('data'));
+  }
 
   Widget _buildOption(CountryCode e) {
     return SizedBox(
