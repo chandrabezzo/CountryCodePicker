@@ -93,6 +93,9 @@ class CountryCodePicker extends StatefulWidget {
 
   final EdgeInsetsGeometry searchPadding;
   final bool? isSvg;
+  final String? assetsSvg;
+  final double? heightSvg;
+  final double? widthSvg;
 
   const CountryCodePicker({
     this.onChanged,
@@ -133,7 +136,7 @@ class CountryCodePicker extends StatefulWidget {
     this.dialogItemPadding =
         const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
-    Key? key,
+    Key? key, this.assetsSvg, this.heightSvg, this.widthSvg,
   }) : super(key: key);
 
   @override
@@ -228,7 +231,11 @@ class CountryCodePickerState extends State<CountryCodePicker> {
                     padding: widget.alignLeft
                         ? const EdgeInsets.only(right: 16.0, left: 8.0)
                         : const EdgeInsets.only(right: 16.0),
-                    child: _customIconWidget(isSvg: widget.isSvg),
+                    child: _customIconWidget(
+                        isSvg: widget.isSvg,
+                        assetsSvg: widget.assetsSvg,
+                        heightSvg: widget.heightSvg,
+                        widthSvg: widget.widthSvg),
                   ),
                 ),
             ],
