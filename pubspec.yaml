@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   collection: ^1.15.0
+  flutter_svg: ^2.0.9
 
 flutter:
   assets:

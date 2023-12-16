@@ -2,6 +2,7 @@ library country_code_picker;
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'src/country_code.dart';
 import 'src/country_codes.dart';
@@ -91,6 +92,7 @@ class CountryCodePicker extends StatefulWidget {
   final EdgeInsetsGeometry dialogItemPadding;
 
   final EdgeInsetsGeometry searchPadding;
+  final bool? isSvg;
 
   const CountryCodePicker({
     this.onChanged,
@@ -123,11 +125,13 @@ class CountryCodePicker extends StatefulWidget {
     this.hideSearch = false,
     this.hideCloseIcon = false,
     this.showDropDownButton = false,
+    this.isSvg,
     this.dialogSize,
     this.dialogBackgroundColor,
     this.closeIcon = const Icon(Icons.close),
     this.countryList = codes,
-    this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+    this.dialogItemPadding =
+        const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
     Key? key,
   }) : super(key: key);
@@ -221,14 +225,11 @@ class CountryCodePickerState extends State<CountryCodePicker> {
                   flex: widget.alignLeft ? 0 : 1,
                   fit: widget.alignLeft ? FlexFit.tight : FlexFit.loose,
                   child: Padding(
-                      padding: widget.alignLeft
-                          ? const EdgeInsets.only(right: 16.0, left: 8.0)
-                          : const EdgeInsets.only(right: 16.0),
-                      child: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.grey,
-                        size: widget.flagWidth,
-                      )),
+                    padding: widget.alignLeft
+                        ? const EdgeInsets.only(right: 16.0, left: 8.0)
+                        : const EdgeInsets.only(right: 16.0),
+                    child: _customIconWidget(isSvg: widget.isSvg),
+                  ),
                 ),
             ],
           ),
@@ -236,6 +237,27 @@ class CountryCodePickerState extends State<CountryCodePicker> {
       );
     }
     return internalWidget;
+  }
+
+  _customIconWidget({
+    bool? isSvg,
+    String? assetsSvg,
+    double? heightSvg,
+    double? widthSvg,
+  }) {
+    if (isSvg == false) {
+      return Icon(
+        Icons.arrow_drop_down,
+        color: Colors.grey,
+        size: widget.flagWidth,
+      );
+    } else {
+      return SvgPicture.asset(
+        assetsSvg ?? '',
+        height: heightSvg,
+        width: widthSvg,
+      );
+    }
   }
 
   @override
