@@ -119,7 +119,7 @@ class _CountryLocalizationsDelegate
 
   @override
   Future<CountryLocalizations> load(Locale locale) async {
-    CountryLocalizations localizations = CountryLocalizations(const Locale('en'));//locale);
+    CountryLocalizations localizations = CountryLocalizations(locale);
     await localizations.load();
     return localizations;
   }

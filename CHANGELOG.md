@@ -1,3 +1,6 @@
+## 3.2.1 - March 26 2025
+- Fix localization support thanks for the report @lukas-pierce
+
 ## 3.2.0 - January 31 2025
 - Add country code picker style #6
 - Remove Special Character #37
