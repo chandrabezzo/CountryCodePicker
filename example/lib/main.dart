@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hello_example/CustomSelectionDialog/custom_selection_dialog.dart';
 
 void main() => runApp(const MyApp());
 
@@ -162,10 +163,35 @@ class MyAppState extends State<MyApp> {
                   favorite: const ['+39', 'FR'],
                 ),
               ),
+              // With Custom Dialog
+              CountryCodePicker(
+                onChanged: print,
+                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                initialSelection: 'IT',
+                //You can set the margin between the flag and the country name to your taste.
+                margin: const EdgeInsets.symmetric(horizontal: 6),
+                comparator: (a, b) => b.name!.compareTo(a.name!),
+                //Get the country information relevant to the initial selection
+                onInit: (code) => debugPrint("on init ${code?.name} ${code?.dialCode} ${code?.name}"),
+                dialogBuilder: customDialogBuilder,
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget customDialogBuilder(BuildContext context,
+      List<CountryCode> filteredElements, SelectionDialog dialog) {
+    return CustomSelectionDialog(
+      elements: dialog.elements,
+      headerText: dialog.headerText,
+      onSelected: (code) {
+        // This callback is optional because the SelectionDialog
+        // itself handles returning the selected code.
+        // You can update any state here if needed.
+      },
     );
   }
 }
