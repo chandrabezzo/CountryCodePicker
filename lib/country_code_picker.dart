@@ -115,6 +115,9 @@ class CountryCodePicker extends StatefulWidget {
   ///Header Text Alignment
   final MainAxisAlignment headerAlignment;
 
+  ///Custom dialog builder
+  final SelectionDialogBuilder? dialogBuilder;
+
   const CountryCodePicker({
     this.onChanged,
     this.onInit,
@@ -159,6 +162,7 @@ class CountryCodePicker extends StatefulWidget {
     this.headerTextStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
     this.hideHeaderText = false,
     this.topBarPadding = const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
+    this.dialogBuilder,
     Key? key,
   }) : super(key: key);
 
@@ -348,6 +352,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             flagDecoration: widget.flagDecoration,
             dialogItemPadding: widget.dialogItemPadding,
             searchPadding: widget.searchPadding,
+            dialogBuilder: widget.dialogBuilder,
           ),
         ),
       ),
