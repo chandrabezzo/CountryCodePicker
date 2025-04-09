@@ -15,14 +15,17 @@ class CountryLocalizations {
     );
   }
 
-  static const LocalizationsDelegate<CountryLocalizations> delegate =
-      _CountryLocalizationsDelegate();
+  static const LocalizationsDelegate<CountryLocalizations> delegate = _CountryLocalizationsDelegate();
+
+  static LocalizationsDelegate<CountryLocalizations> getDelegate({bool enableLocalization = true}) {
+    return _CountryLocalizationsDelegate(enableLocalization: enableLocalization);
+  }
 
   late Map<String, String> _localizedStrings;
 
   Future<bool> load() async {
-    String jsonString = await rootBundle.loadString(
-        'packages/country_code_picker/src/i18n/${locale.languageCode}.json');
+    String jsonString =
+        await rootBundle.loadString('packages/country_code_picker/src/i18n/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
@@ -37,9 +40,10 @@ class CountryLocalizations {
   }
 }
 
-class _CountryLocalizationsDelegate
-    extends LocalizationsDelegate<CountryLocalizations> {
-  const _CountryLocalizationsDelegate();
+class _CountryLocalizationsDelegate extends LocalizationsDelegate<CountryLocalizations> {
+  final bool enableLocalization;
+
+  const _CountryLocalizationsDelegate({this.enableLocalization = true});
 
   @override
   bool isSupported(Locale locale) {
@@ -119,7 +123,10 @@ class _CountryLocalizationsDelegate
 
   @override
   Future<CountryLocalizations> load(Locale locale) async {
-    CountryLocalizations localizations = CountryLocalizations(locale);
+    // Use the provided locale if localization is enabled; otherwise, use English.
+    Locale effectiveLocale = enableLocalization ? locale : const Locale('en');
+
+    CountryLocalizations localizations = CountryLocalizations(effectiveLocale);
     await localizations.load();
     return localizations;
   }

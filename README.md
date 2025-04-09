@@ -57,8 +57,9 @@ void _onCountryChange(CountryCode countryCode) {
 
 ### i18n
 
-Just add the `CountryLocalizations.delegate` in the list of your app delegates
+Just add the `CountryLocalizations.delegate` in the list of your app delegates 
 
+### Default Usage (Localization Enabled)
 ```dart
  return new MaterialApp(
       supportedLocales: [
@@ -140,9 +141,19 @@ Just add the `CountryLocalizations.delegate` in the list of your app delegates
       ],
 ```
 
+### Force English (Localization Disabled)
+```dart
+ return new MaterialApp(
+      localizationsDelegates: [
+        CountryLocalizations.delegate(enableLocalization: false),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+```
+
 ## Customization
 
-Here is a list of properties available to customize your widget:
+Here is a list of properties available to customizeccc your widget:
 
 | Name | Type | Description |
 |-----|-----|------|
@@ -198,7 +209,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/chandra-abdul-fattah"><img src="https://avatars.githubusercontent.com/u/16184998?v=4?s=100" width="100px;" alt="Chandra Abdul Fattah"/><br /><sub><b>Chandra Abdul Fattah</b></sub></a><br /><a href="#infra-chandrabezzo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/chandrabezzo/CountryCodePicker/commits?author=chandrabezzo" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/imtoori"><img src="https://avatars.githubusercontent.com/u/20601437?v=4?s=100" width="100px;" alt="Salvatore Giordano"/><br /><sub><b>Salvatore Giordano</b></sub></a><br /><a href="#infra-imtoori" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/chandrabezzo/CountryCodePicker/commits?author=imtoori" title="Code">💻</a></td>
-    </tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/nilashish-roy-b8a4a0171/"><img src="https://avatars.githubusercontent.com/u/96123041?v=4?s=100" width="100px;" alt="Nilashish Roy"/><br /><sub><b>Nilashish Roy</b></sub></a><br /><a href="#infra-mrroy121" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/chandrabezzo/CountryCodePicker/commits?author=mrroy121" title="Code">💻</a></td>
+   </tr>
   </tbody>
 </table>
 

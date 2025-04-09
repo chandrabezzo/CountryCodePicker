@@ -1,5 +1,7 @@
 import 'package:collection/collection.dart' show IterableExtension;
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 import 'country_codes.dart';
 import 'country_localizations.dart';
@@ -39,6 +41,15 @@ class CountryCode {
     return CountryCode.fromJson(jsonCode!);
   }
 
+  static CountryCode? tryFromCountryCode(String countryCode) {
+    try {
+      return CountryCode.fromCountryCode(countryCode);
+    } catch (e) {
+      if (kDebugMode) print('Failed to recognize country from countryCode: $countryCode');
+      return null;
+    }
+  }
+
   factory CountryCode.fromDialCode(String dialCode) {
     final Map<String, String>? jsonCode = codes.firstWhereOrNull(
       (code) => code['dial_code'] == dialCode,
@@ -46,14 +57,24 @@ class CountryCode {
     return CountryCode.fromJson(jsonCode!);
   }
 
+  static CountryCode? tryFromDialCode(String dialCode) {
+    try {
+      return CountryCode.fromDialCode(dialCode);
+    } catch (e) {
+      if (kDebugMode) print('Failed to recognize country from dialCode: $dialCode');
+      return null;
+    }
+  }
+
   CountryCode localize(BuildContext context) {
+    final nam = CountryLocalizations.of(context)?.translate(code) ?? name;
     return this
-      ..name = CountryLocalizations.of(context)?.translate(code) ?? name;
+      ..name = nam == null? name : removeDiacritics(nam);
   }
 
   factory CountryCode.fromJson(Map<String, dynamic> json) {
     return CountryCode(
-      name: json['name'],
+      name: removeDiacritics(json['name']),
       code: json['code'],
       dialCode: json['dial_code'],
       flagUri: 'flags/${json['code'].toLowerCase()}.png',

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'country_code.dart';
 import 'country_localizations.dart';
 
-/// selection dialog used for selection of the country code
-class SelectionDialog extends StatefulWidget {
+/// selection bottom sheet used for selection of the country code
+class SelectionBottomSheet extends StatefulWidget {
   final List<CountryCode> elements;
   final bool? showCountryOnly;
   final InputDecoration searchDecoration;
   final TextStyle? searchStyle;
   final TextStyle? textStyle;
-  final TextStyle headerTextStyle;
   final BoxDecoration? boxDecoration;
   final WidgetBuilder? emptySearchBuilder;
   final bool? showFlag;
@@ -18,40 +17,26 @@ class SelectionDialog extends StatefulWidget {
   final Decoration? flagDecoration;
   final Size? size;
   final bool hideSearch;
-  final bool hideCloseIcon;
   final Icon? closeIcon;
-  final bool hideHeaderText;
-  final String? headerText;
-  final EdgeInsets topBarPadding;
-  final MainAxisAlignment headerAlignment;
 
-  /// Background color of SelectionDialog
+  /// Background color of SelectionBottomSheet
   final Color? backgroundColor;
 
-  /// Boxshaow color of SelectionDialog that matches CountryCodePicker barrier color
+  /// Boxshaow color of SelectionBottomSheet that matches CountryCodePicker barrier color
   final Color? barrierColor;
 
   /// elements passed as favorite
   final List<CountryCode> favoriteElements;
 
-  final EdgeInsetsGeometry dialogItemPadding;
-
-  final EdgeInsetsGeometry searchPadding;
-
-  SelectionDialog(
+  SelectionBottomSheet(
     this.elements,
     this.favoriteElements, {
     Key? key,
     this.showCountryOnly,
-    required this.hideHeaderText,
     this.emptySearchBuilder,
-    required this.headerAlignment,
-    required this.headerTextStyle,
     InputDecoration searchDecoration = const InputDecoration(),
     this.searchStyle,
     this.textStyle,
-   required this.topBarPadding,
-    this.headerText,
     this.boxDecoration,
     this.showFlag,
     this.flagDecoration,
@@ -60,18 +45,17 @@ class SelectionDialog extends StatefulWidget {
     this.backgroundColor,
     this.barrierColor,
     this.hideSearch = false,
-    this.hideCloseIcon = false,
     this.closeIcon,
-    this.dialogItemPadding = const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-    this.searchPadding = const EdgeInsets.symmetric(horizontal: 24),
-  })  : searchDecoration = searchDecoration.prefixIcon == null ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search)) : searchDecoration,
+  })  : searchDecoration = searchDecoration.prefixIcon == null
+            ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search))
+            : searchDecoration,
         super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SelectionDialogState();
+  State<StatefulWidget> createState() => _SelectionBottomSheetState();
 }
 
-class _SelectionDialogState extends State<SelectionDialog> {
+class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
   /// this is useful for filtering purpose
   late List<CountryCode> filteredElements;
 
@@ -81,14 +65,16 @@ class _SelectionDialogState extends State<SelectionDialog> {
         child: Container(
           clipBehavior: Clip.hardEdge,
           width: widget.size?.width ?? MediaQuery.of(context).size.width,
-          height: widget.size?.height ?? MediaQuery.of(context).size.height * 0.85,
+          height:
+              widget.size?.height ?? MediaQuery.of(context).size.height * 0.85,
           decoration: widget.boxDecoration ??
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 boxShadow: [
                   BoxShadow(
-                    color: widget.barrierColor ?? Colors.grey.withAlpha(255),
+                    color: widget.barrierColor ?? Colors.grey
+                      ..withAlpha(255),
                     spreadRadius: 5,
                     blurRadius: 7,
                     offset: const Offset(0, 3), // changes position of shadow
@@ -99,31 +85,15 @@ class _SelectionDialogState extends State<SelectionDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Padding(
-                padding:!widget.hideHeaderText? widget.topBarPadding: EdgeInsets.zero,
-                child: Row(
-                  mainAxisAlignment: widget.headerAlignment,
-                  children: [
-                    !widget.hideHeaderText && widget.headerText != null
-                        ? Text(
-                            widget.headerText!,
-                            overflow: TextOverflow.fade,
-                            style: widget.headerTextStyle,
-                          )
-                        : const SizedBox.shrink(),
-                    if (!widget.hideCloseIcon)
-                      IconButton(
-                        padding: const EdgeInsets.all(0),
-                        iconSize: 20,
-                        icon: widget.closeIcon!,
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                  ],
-                ),
+              IconButton(
+                padding: const EdgeInsets.all(0),
+                iconSize: 20,
+                icon: widget.closeIcon!,
+                onPressed: () => Navigator.pop(context),
               ),
               if (!widget.hideSearch)
                 Padding(
-                  padding: widget.searchPadding,
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
                     style: widget.searchStyle,
                     decoration: widget.searchDecoration,
@@ -138,28 +108,28 @@ class _SelectionDialogState extends State<SelectionDialog> {
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ...widget.favoriteElements.map((f) => InkWell(
-                                  onTap: () {
+                              ...widget.favoriteElements.map(
+                                (f) => SimpleDialogOption(
+                                  child: _buildOption(f),
+                                  onPressed: () {
                                     _selectItem(f);
                                   },
-                                  child: Padding(
-                                    padding: widget.dialogItemPadding,
-                                    child: _buildOption(f),
-                                  ))),
+                                ),
+                              ),
                               const Divider(),
                             ],
                           ),
                     if (filteredElements.isEmpty)
                       _buildEmptySearchWidget(context)
                     else
-                      ...filteredElements.map((e) => InkWell(
-                          onTap: () {
+                      ...filteredElements.map(
+                        (e) => SimpleDialogOption(
+                          child: _buildOption(e),
+                          onPressed: () {
                             _selectItem(e);
                           },
-                          child: Padding(
-                            padding: widget.dialogItemPadding,
-                            child: _buildOption(e),
-                          ))),
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -177,11 +147,10 @@ class _SelectionDialogState extends State<SelectionDialog> {
           if (widget.showFlag!)
             Flexible(
               child: Container(
-                margin: Directionality.of(context) == TextDirection.ltr    // Here Adding padding depending on the locale language direction
-                    ? const EdgeInsets.only(right: 16.0)
-                    : const EdgeInsets.only(left: 16.0),
+                margin: const EdgeInsets.only(right: 16.0),
                 decoration: widget.flagDecoration,
-                clipBehavior: widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
+                clipBehavior:
+                    widget.flagDecoration == null ? Clip.none : Clip.hardEdge,
                 child: Image.asset(
                   e.flagUri!,
                   package: 'country_code_picker',
@@ -192,7 +161,9 @@ class _SelectionDialogState extends State<SelectionDialog> {
           Expanded(
             flex: 4,
             child: Text(
-              widget.showCountryOnly! ? e.toCountryStringOnly() : e.toLongString(),
+              widget.showCountryOnly!
+                  ? e.toCountryStringOnly()
+                  : e.toLongString(),
               overflow: TextOverflow.fade,
               style: widget.textStyle,
             ),
@@ -208,7 +179,8 @@ class _SelectionDialogState extends State<SelectionDialog> {
     }
 
     return Center(
-      child: Text(CountryLocalizations.of(context)?.translate('no_country') ?? 'No country found'),
+      child: Text(CountryLocalizations.of(context)?.translate('no_country') ??
+          'No country found'),
     );
   }
 
@@ -221,7 +193,12 @@ class _SelectionDialogState extends State<SelectionDialog> {
   void _filterElements(String s) {
     s = s.toUpperCase();
     setState(() {
-      filteredElements = widget.elements.where((e) => e.code!.contains(s) || e.dialCode!.contains(s) || e.name!.toUpperCase().contains(s)).toList();
+      filteredElements = widget.elements
+          .where((e) =>
+              e.code!.contains(s) ||
+              e.dialCode!.contains(s) ||
+              e.name!.toUpperCase().contains(s))
+          .toList();
     });
   }
 

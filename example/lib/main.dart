@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   MyAppState createState() => MyAppState();
@@ -89,6 +89,7 @@ class MyAppState extends State<MyApp> {
       ],
       localizationsDelegates: const [
         CountryLocalizations.delegate,
+       /// CountryLocalizations.getDelegate(enableLocalization: false),  // For no localization only english just declare delegate this way.
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
@@ -104,15 +105,14 @@ class MyAppState extends State<MyApp> {
                 onChanged: print,
                 // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                 initialSelection: 'IT',
-                favorite: const ['+39', 'FR'],
-                countryFilter: const ['IT', 'FR'],
-                showFlagDialog: false,
-                comparator: (a, b) => b.name.compareTo(a.name),
+                //You can set the margin between the flag and the country name to your taste.
+                margin: const EdgeInsets.symmetric(horizontal: 6),
+                comparator: (a, b) => b.name!.compareTo(a.name!),
                 //Get the country information relevant to the initial selection
-                onInit: (code) => debugPrint(
-                    "on init ${code.name} ${code.dialCode} ${code.name}"),
+                onInit: (code) => debugPrint("on init ${code?.name} ${code?.dialCode} ${code?.name}"),
               ),
               CountryCodePicker(
+                hideHeaderText: true,
                 onChanged: print,
                 // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                 initialSelection: 'IT',
@@ -122,6 +122,7 @@ class MyAppState extends State<MyApp> {
                 flagDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                 ),
+                pickerStyle: PickerStyle.bottomSheet,
               ),
               const SizedBox(
                 width: 400,
