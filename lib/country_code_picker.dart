@@ -120,10 +120,13 @@ class CountryCodePicker extends StatefulWidget {
 
   /// This function will receive the child and show a custom
   /// dialog based on the function implementation
+  /// Note: You have to return this function to back to the package to select the country
   final Function? showDialogCustomFunction;
 
   /// This function will receive the child and show a custom
   /// modal bottom sheet based on the function implementation
+  /// Note: You have to return this function to back to the package to select the country
+
   final Function? showBottomSheetCustomFunction;
 
   const CountryCodePicker({
