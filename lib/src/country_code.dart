@@ -83,10 +83,17 @@ class CountryCode {
     );
   }
 
-  @override
-  String toString() => "$dialCode";
+  static const String _lrm = '\u200E';
+  String get _dialCodeLTR {
+    final dc = dialCode ?? '';
+    if (dc.isEmpty) return dc;
+    return '$_lrm$dc$_lrm';
+  }
 
-  String toLongString() => "$dialCode ${toCountryStringOnly()}";
+  @override
+  String toString() => _dialCodeLTR;
+
+  String toLongString() => "$_dialCodeLTR ${toCountryStringOnly()}";
 
   String toCountryStringOnly() {
     return '$_cleanName';
