@@ -18,6 +18,13 @@ class SelectionBottomSheet extends StatefulWidget {
   final Size? size;
   final bool hideSearch;
   final Icon? closeIcon;
+  final List<BoxShadow>? boxShadow;
+  final bool hideHeaderText;
+  final String? headerText;
+  final TextStyle headerTextStyle;
+  final EdgeInsets topBarPadding;
+  final MainAxisAlignment headerAlignment;
+  final bool hideCloseIcon;
 
   /// Background color of SelectionBottomSheet
   final Color? backgroundColor;
@@ -43,9 +50,16 @@ class SelectionBottomSheet extends StatefulWidget {
     this.flagWidth = 32,
     this.size,
     this.backgroundColor,
+    this.boxShadow,
     this.barrierColor,
     this.hideSearch = false,
     this.closeIcon,
+    this.hideHeaderText = true,       // default true = no header, keeps old behavior
+    this.headerText,
+    this.headerTextStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    this.topBarPadding = const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
+    this.headerAlignment = MainAxisAlignment.spaceBetween,
+    this.hideCloseIcon = false,
   })  : searchDecoration = searchDecoration.prefixIcon == null
             ? searchDecoration.copyWith(prefixIcon: const Icon(Icons.search))
             : searchDecoration,
@@ -71,13 +85,12 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                boxShadow: [
+                boxShadow: widget.boxShadow ?? [
                   BoxShadow(
-                    color: widget.barrierColor ?? Colors.grey
-                      ..withAlpha(255),
+                    color: widget.barrierColor ?? Colors.grey.withAlpha(255),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -85,11 +98,27 @@ class _SelectionBottomSheetState extends State<SelectionBottomSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              IconButton(
-                padding: const EdgeInsets.all(0),
-                iconSize: 20,
-                icon: widget.closeIcon!,
-                onPressed: () => Navigator.pop(context),
+              Padding(
+                padding: !widget.hideHeaderText ? widget.topBarPadding : EdgeInsets.zero,
+                child: Row(
+                  mainAxisAlignment: widget.headerAlignment,
+                  children: [
+                    !widget.hideHeaderText && widget.headerText != null
+                        ? Text(
+                      widget.headerText!,
+                      overflow: TextOverflow.fade,
+                      style: widget.headerTextStyle,
+                    )
+                        : const SizedBox.shrink(),
+                    if (!widget.hideCloseIcon)
+                      IconButton(
+                        padding: const EdgeInsets.all(0),
+                        iconSize: 20,
+                        icon: widget.closeIcon!,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                  ],
+                ),
               ),
               if (!widget.hideSearch)
                 Padding(

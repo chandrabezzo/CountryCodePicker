@@ -1,3 +1,8 @@
+## [Unreleased]
+- fix: exposed `backgroundColor` for both Dialog and BottomSheet
+- fix: `boxShadow` now customizable — pass `[]` to remove, or provide custom shadows
+- feat: BottomSheet now supports header customization (`headerText`, `hideHeaderText`, `headerTextStyle`, etc.)
+
 ## 3.4.1 - October 08 2025
 - Fix French country translations
 - Removed Netherlands Antilles from country codes list

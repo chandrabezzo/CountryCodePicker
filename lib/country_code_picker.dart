@@ -34,6 +34,7 @@ class CountryCodePicker extends StatefulWidget {
   final bool enabled;
   final TextOverflow textOverflow;
   final Icon closeIcon;
+  final List<BoxShadow>? boxShadow;
 
   ///Picker style [BottomSheet] or [Dialog]
   final PickerStyle pickerStyle;
@@ -146,6 +147,7 @@ class CountryCodePicker extends StatefulWidget {
     this.boxDecoration,
     this.comparator,
     this.countryFilter,
+    this.boxShadow,
     this.hideSearch = false,
     this.hideCloseIcon = false,
     this.showDropDownButton = false,
@@ -325,6 +327,8 @@ class CountryCodePickerState extends State<CountryCodePicker> {
       context: context,
       builder: (context) => Center(
         child: Dialog(
+          backgroundColor: widget.backgroundColor,
+          elevation: 0,
           child: SelectionDialog(
             elements,
             favoriteElements,
@@ -347,6 +351,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
             barrierColor: widget.barrierColor,
             hideSearch: widget.hideSearch,
             hideCloseIcon: widget.hideCloseIcon,
+            boxShadow: widget.boxShadow,
             closeIcon: widget.closeIcon,
             flagDecoration: widget.flagDecoration,
             dialogItemPadding: widget.dialogItemPadding,
@@ -369,7 +374,7 @@ class CountryCodePickerState extends State<CountryCodePicker> {
     final item = await showModalBottomSheet(
       isScrollControlled: true,
       context: context,
-      backgroundColor: Colors.transparent,
+      backgroundColor: widget.backgroundColor,
       elevation: 0,
       builder: (ctx) {
         return SelectionBottomSheet(
@@ -384,10 +389,17 @@ class CountryCodePickerState extends State<CountryCodePicker> {
           showFlag: widget.showFlagDialog ?? widget.showFlag,
           flagWidth: widget.flagWidth,
           size: widget.dialogSize,
+          hideHeaderText: widget.hideHeaderText,
+          headerText: widget.headerText,
+          headerTextStyle: widget.headerTextStyle,
+          topBarPadding: widget.topBarPadding,
+          headerAlignment: widget.headerAlignment,
+          hideCloseIcon: widget.hideCloseIcon,
           backgroundColor: widget.dialogBackgroundColor,
           barrierColor: widget.barrierColor,
           hideSearch: widget.hideSearch,
           closeIcon: widget.closeIcon,
+          boxShadow: widget.boxShadow,
           flagDecoration: widget.flagDecoration,
         );
       },

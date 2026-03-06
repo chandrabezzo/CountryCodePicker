@@ -26,6 +26,7 @@ class SelectionDialog extends StatefulWidget {
   final String? headerText;
   final EdgeInsets topBarPadding;
   final MainAxisAlignment headerAlignment;
+  final List<BoxShadow>? boxShadow;
 
   /// Background color of SelectionDialog
   final Color? backgroundColor;
@@ -60,6 +61,7 @@ class SelectionDialog extends StatefulWidget {
     this.flagDecoration,
     this.flagWidth = 32,
     this.size,
+    this.boxShadow,
     this.backgroundColor,
     this.barrierColor,
     this.hideSearch = false,
@@ -93,12 +95,12 @@ class _SelectionDialogState extends State<SelectionDialog> {
               BoxDecoration(
                 color: widget.backgroundColor ?? Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                boxShadow: [
+                boxShadow: widget.boxShadow ?? [
                   BoxShadow(
                     color: widget.barrierColor ?? Colors.grey.withAlpha(255),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: const Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
