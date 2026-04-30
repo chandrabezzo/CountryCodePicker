@@ -248,5 +248,6 @@
     "RS": "Serbia",
     "SX": "Sint Maarten (neerlandesa)",
     "SS": "Sudán del Sur",
-    "XK": "Kosovo"
+    "XK": "Kosovo",
+    "no_country": "No se encontró ningún país"
 }
