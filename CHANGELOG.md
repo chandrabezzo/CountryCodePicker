@@ -1,3 +1,17 @@
+## 3.4.1 - October 08 2025
+- Fix French country translations
+- Removed Netherlands Antilles from country codes list
+
+## 3.4.0 - August 19 2025
+- Fix China translation
+- Adding flag autofocus
+
+## 3.3.1 - August 19 2025
+- Fix French translation accent display issue
+- Correct French country name translations (Biélorussie, Koweït, Grenade, etc.)
+- Preserve accents in displayed names while maintaining search functionality
+- Update search logic to handle both accented and non-accented input
+
 ## 3.3.0 - March 26 2025
 - Fix localization, typo, and flag issue #51 thanks to @MrRoy121
 

@@ -83,7 +83,7 @@ const List<Map<String, String>> codes = [
   },
   {"name": "Tchad", "code": "TD", "iso3Code": "TCD", "dial_code": "+235"},
   {"name": "Chile", "code": "CL", "iso3Code": "CHL", "dial_code": "+56"},
-  {"name": "中国", "code": "CN", "iso3Code": "CHN", "dial_code": "+86"},
+  {"name": "中国大陆", "code": "CN", "iso3Code": "CHN", "dial_code": "+86"},
   {
     "name": "Christmas Island",
     "code": "CX",
@@ -216,7 +216,7 @@ const List<Map<String, String>> codes = [
   },
   {"name": "Vaticano", "code": "VA", "iso3Code": "VAT", "dial_code": "+379"},
   {"name": "Honduras", "code": "HN", "iso3Code": "HND", "dial_code": "+504"},
-  {"name": "香港", "code": "HK", "iso3Code": "HKG", "dial_code": "+852"},
+  {"name": "中國香港", "code": "HK", "iso3Code": "HKG", "dial_code": "+852"},
   {"name": "Magyarország", "code": "HU", "iso3Code": "HUN", "dial_code": "+36"},
   {"name": "Ísland", "code": "IS", "iso3Code": "ISL", "dial_code": "+354"},
   {"name": "भारत", "code": "IN", "iso3Code": "IND", "dial_code": "+91"},
@@ -258,7 +258,7 @@ const List<Map<String, String>> codes = [
   },
   {"name": "Lietuva", "code": "LT", "iso3Code": "LTU", "dial_code": "+370"},
   {"name": "Luxembourg", "code": "LU", "iso3Code": "LUX", "dial_code": "+352"},
-  {"name": "澳門", "code": "MO", "iso3Code": "MAC", "dial_code": "+853"},
+  {"name": "中國澳門", "code": "MO", "iso3Code": "MAC", "dial_code": "+853"},
   {"name": "Македонија", "code": "MK", "iso3Code": "MKD", "dial_code": "+389"},
   {
     "name": "Madagasikara",
@@ -290,12 +290,6 @@ const List<Map<String, String>> codes = [
   {"name": "Nauru", "code": "NR", "iso3Code": "NRU", "dial_code": "+674"},
   {"name": "नेपाल", "code": "NP", "iso3Code": "NPL", "dial_code": "+977"},
   {"name": "Nederland", "code": "NL", "iso3Code": "NLD", "dial_code": "+31"},
-  {
-    "name": "Netherlands Antilles",
-    "code": "AN",
-    "iso3Code": "AN",
-    "dial_code": "+599"
-  },
   {
     "name": "Nouvelle-Calédonie",
     "code": "NC",
@@ -456,7 +450,7 @@ const List<Map<String, String>> codes = [
   {"name": "Sverige", "code": "SE", "iso3Code": "SWE", "dial_code": "+46"},
   {"name": "Schweiz", "code": "CH", "iso3Code": "CHE", "dial_code": "+41"},
   {"name": "سوريا", "code": "SY", "iso3Code": "SYR", "dial_code": "+963"},
-  {"name": "臺灣", "code": "TW", "iso3Code": "TWN", "dial_code": "+886"},
+  {"name": "中國臺灣", "code": "TW", "iso3Code": "TWN", "dial_code": "+886"},
   {"name": "Тоҷикистон", "code": "TJ", "iso3Code": "TJK", "dial_code": "+992"},
   {"name": "Tanzania", "code": "TZ", "iso3Code": "TZA", "dial_code": "+255"},
   {"name": "ประเทศไทย", "code": "TH", "iso3Code": "THA", "dial_code": "+66"},
