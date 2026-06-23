@@ -1,3 +1,6 @@
+## 3.5.0 - June 23 2026
+- Add Central Kurdish (Sorani) `ckb` language support
+
 ## 3.4.1 - October 08 2025
 - Fix French country translations
 - Removed Netherlands Antilles from country codes list

@@ -11,7 +11,7 @@
 
 A flutter package for showing a country code selector.
 
-It supports i18n for 70 languages.
+It supports i18n for 71 languages.
 
 Check the example on web! https://imtoori.dev/CountryCodePicker/#/
 
@@ -72,6 +72,7 @@ Just add the `CountryLocalizations.delegate` in the list of your app delegates
         Locale("bn"),
         Locale("bs"),
         Locale("ca"),
+        Locale("ckb"),
         Locale("cs"),
         Locale("da"),
         Locale("de"),
