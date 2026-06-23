@@ -57,6 +57,7 @@ class _CountryLocalizationsDelegate extends LocalizationsDelegate<CountryLocaliz
       "bn",
       "bs",
       "ca",
+      "ckb",
       "cs",
       "da",
       "de",
